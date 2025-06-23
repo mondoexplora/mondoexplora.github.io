@@ -2,9 +2,80 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Hola Lucas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparador de Hoteles en Tokio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+    }
+    .hero {
+      background: url('https://source.unsplash.com/1600x500/?tokyo,city') center/cover no-repeat;
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin: 0;
+      text-shadow: 1px 1px 8px rgba(0,0,0,0.5);
+    }
+    .hotels-section {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .hotel-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: row;
+      overflow: hidden;
+    }
+    .hotel-card img {
+      width: 200px;
+      height: 150px;
+      object-fit: cover;
+    }
+    .hotel-info {
+      padding: 20px;
+      flex: 1;
+    }
+    .hotel-info h2 {
+      margin: 0 0 10px;
+      font-size: 1.5rem;
+      color: #333;
+    }
+    .hotel-info p {
+      margin: 0;
+      color: #666;
+    }
+  </style>
 </head>
 <body>
-  <h1>HOLA LUCAS</h1>
+  <div class="hero">
+    <h1>Los Mejores Hoteles en Tokio</h1>
+  </div>
+  <div class="hotels-section">
+    <div class="hotel-card">
+      <img src="https://source.unsplash.com/400x300/?hotel" alt="Hotel 1">
+      <div class="hotel-info">
+        <h2>Hotel Sakura View</h2>
+        <p>Ubicado en el corazón de Shinjuku, ofrece vistas espectaculares, desayuno gratuito y acceso a trenes y atracciones cercanas.</p>
+      </div>
+    </div>
+    <div class="hotel-card">
+      <img src="https://source.unsplash.com/400x300/?hotel-room" alt="Hotel 2">
+      <div class="hotel-info">
+        <h2>Tokyo Zen Hotel</h2>
+        <p>Una experiencia boutique con estilo japonés tradicional y modernas comodidades. Perfecto para viajeros que buscan calma.</p>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
