@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Travel Landing Page</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -12,16 +12,13 @@
       background-color: #f8f9fa;
     }
     header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
     header nav a {
       margin: 0 1rem;
       text-decoration: none;
@@ -29,26 +26,22 @@
       font-weight: 600;
     }
     .hero {
-  position: sticky;
-  top: 70px;
-  z-index: 999;
-  background: url('https://source.unsplash.com/1600x400/?thailand,beach') no-repeat center center/cover;
-  height: 240px;
-      position: relative;
+      background: url('https://source.unsplash.com/1600x500/?thailand,beach') no-repeat center center/cover;
+      height: 400px;
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
     }
     .search-box {
-      background: url('https://source.unsplash.com/800x400/?thailand,beach') no-repeat center center/cover;
-      background-size: cover;
+      background-color: rgba(255,255,255,0.95);
       padding: 2rem;
       border-radius: 8px;
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
       max-width: 800px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
     .search-box input {
       padding: 1rem;
@@ -67,19 +60,19 @@
       font-weight: bold;
       cursor: pointer;
     }
-    .content {
+    .main-content {
       display: flex;
-      gap: 2rem;
-      padding: 2rem;
       flex-wrap: wrap;
+      padding: 2rem;
+      gap: 2rem;
+    }
+    .left-frame {
+      flex: 3;
+      min-width: 0;
     }
     .right-frame {
       flex: 1;
-      max-width: 220px;
-    }
-    .left-frame {
-      flex: 2;
-      max-width: calc(100% - 240px);
+      max-width: 600px;
     }
     .right-frame ul {
       list-style: none;
@@ -98,15 +91,17 @@
     }
     .hotel-card-container {
       display: flex;
-      flex-wrap: wrap;
       gap: 1.5rem;
+      flex-wrap: wrap;
     }
     .hotel-card {
       background: white;
       border-radius: 6px;
       overflow: hidden;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      flex: 0 0 calc(50% - 0.75rem);
+      flex: 0 0 calc(25% - 1.1rem);
+      display: flex;
+      flex-direction: column;
     }
     .hotel-card img {
       width: 100%;
@@ -115,6 +110,10 @@
     }
     .hotel-card-content {
       padding: 1rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .hotel-card h4 {
       margin: 0.5rem 0;
@@ -123,6 +122,7 @@
     .hotel-card p {
       margin: 0.5rem 0 1rem;
       color: #666;
+      font-size: 0.9rem;
     }
     .hotel-price {
       font-size: 1rem;
@@ -153,46 +153,53 @@
       <button>Compare Travel Modes</button>
     </div>
   </section>
-  <section class="content">
+  <section class="main-content">
     <div class="left-frame">
       <h2>Best Hotel Deals</h2>
       <div class="hotel-card-container">
         <div class="hotel-card">
-  <img src="https://images.luxuryescapes.com/wayzp2jpi9kqlk1j3f4t" alt="Ultra-Chic Five-Star Bangkok City Stay" />
-  <div class="hotel-card-content">
-    <h4>Ultra-Chic Five-Star Bangkok City Stay</h4>
-    <p>Spoil your senses with a stay at an outrageously fashionable sanctuary in Bangkok's entertainment district.</p>
-    <div class="hotel-price"><del>$751</del> $339</div>
-    <a href="https://luxuryescapes.com/offer/006RF00000FPBhO2AT" target="_blank" style="color:#0071c2;font-weight:bold;text-decoration:none;">View Deal</a>
-  </div>
-</div>
-
-<div class="hotel-card">
-  <img src="https://images.unsplash.com/photo-1501117716987-c8e1ecb210d9" alt="Sky-High Bangkok Sukhumvit Sanctuary" />
-  <div class="hotel-card-content">
-    <h4>Sky-High Bangkok Sukhumvit Sanctuary</h4>
-    <p>Located in Sukhumvit, this stylish city escape is your launchpad to explore culture, nightlife and cuisine.</p>
-    <div class="hotel-price"><del>$659</del> $289</div>
-    <a href="https://luxuryescapes.com/offer/006RF00000IQLZsYAP" target="_blank" style="color:#0071c2;font-weight:bold;text-decoration:none;">View Deal</a>
-  </div>
-</div>
-
-<div class="hotel-card">
-  <img src="https://images.unsplash.com/photo-1604147706284-9d7ee2f3f643" alt="Secluded Thailand Riverside Serenity" />
-  <div class="hotel-card-content">
-    <h4>Secluded Thailand Riverside Serenity</h4>
-    <p>Enjoy peaceful luxury at this riverside resort blending modern design and Thai elements.</p>
-    <div class="hotel-price"><del>$1292</del> $479</div>
-    <a href="https://luxuryescapes.com/offer/006RF00000FoywHYAR" target="_blank" style="color:#0071c2;font-weight:bold;text-decoration:none;">View Deal</a>
-  </div>
-</div>
-
-<div class="hotel-card">
-  <img src="https://images.unsplash.com/photo-1618221066063-3be2b268e42d" alt="Khao Lak Secluded Beachfront Suites" />
-  <div class="hotel-card-content">
-    <h4>Khao Lak Secluded Beachfront Suites</h4>
-    <p>Stay on Thailand’s Andaman coast at this beachfront resort with access to beaches and jungle.</p>
-    <div class="hotel-price"><del>$3137</del> $749</div>
-    <a href="https://luxuryescapes.com/offer/006RF00000Gmf1vYAB" target="_blank" style="color:#0071c2;font-weight:bold;text-decoration:none;">View Deal</a>
-  </div>
-</div>
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Hotel 1">
+          <div class="hotel-card-content">
+            <h4>Bangkok Luxury Retreat</h4>
+            <p>5-star city stay with rooftop pool and breakfast included.</p>
+            <div class="hotel-price"><del>$299</del> $149</div>
+          </div>
+        </div>
+        <div class="hotel-card">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Hotel 2">
+          <div class="hotel-card-content">
+            <h4>Koh Tao Beach Resort</h4>
+            <p>Beachfront paradise with spa and free shuttle from pier.</p>
+            <div class="hotel-price"><del>$199</del> $89</div>
+          </div>
+        </div>
+        <div class="hotel-card">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Hotel 3">
+          <div class="hotel-card-content">
+            <h4>Urban Escape Bangkok</h4>
+            <p>Modern design, central location, and rooftop dining.</p>
+            <div class="hotel-price"><del>$239</del> $109</div>
+          </div>
+        </div>
+        <div class="hotel-card">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Hotel 4">
+          <div class="hotel-card-content">
+            <h4>Tropical Hideaway Koh Tao</h4>
+            <p>Eco villas surrounded by lush gardens and beach access.</p>
+            <div class="hotel-price"><del>$279</del> $129</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right-frame">
+      <ul>
+        <li><a href="#">Flights US-Origin under $500</a></li>
+        <li><a href="#">Flights US-Destination under $600</a></li>
+        <li><a href="#">Hotels in Origin under $99/night</a></li>
+        <li><a href="#">Hotels in Destination under $98/night</a></li>
+        <li><a href="#">Flight + Hotel discounts to Asia</a></li>
+      </ul>
+    </div>
+  </section>
+</body>
+</html>
