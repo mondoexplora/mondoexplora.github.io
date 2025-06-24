@@ -1,81 +1,186 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comparador de Hoteles en Tokio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Landing Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f7fa;
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f9fa;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    header nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
     }
     .hero {
-      background: url('https://source.unsplash.com/1600x500/?tokyo,city') center/cover no-repeat;
-      color: white;
-      padding: 60px 20px;
-      text-align: center;
-    }
-    .hero h1 {
-      font-size: 3rem;
-      margin: 0;
-      text-shadow: 1px 1px 8px rgba(0,0,0,0.5);
-    }
-    .hotels-section {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 0 20px;
+      background: url('https://source.unsplash.com/1600x600/?travel') no-repeat center center/cover;
+      height: 500px;
+      position: relative;
       display: flex;
-      flex-direction: column;
-      gap: 30px;
+      align-items: center;
+      justify-content: center;
+    }
+    .search-box {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 2rem;
+      border-radius: 8px;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      max-width: 800px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .search-box input {
+      padding: 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      flex: 1;
+      min-width: 200px;
+    }
+    .search-box button {
+      padding: 1rem 2rem;
+      background-color: #ff5a5f;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .content {
+      display: flex;
+      gap: 2rem;
+      padding: 2rem;
+      flex-wrap: wrap;
+    }
+    .right-frame, .left-frame {
+      flex: 1;
+      max-width: 600px;
+    }
+    .right-frame ul {
+      list-style: none;
+      padding: 0;
+    }
+    .right-frame li a {
+      display: block;
+      padding: 1rem;
+      background: white;
+      border: 1px solid #eee;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #0071c2;
+      font-weight: 600;
     }
     .hotel-card {
       background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      display: flex;
-      flex-direction: row;
+      border-radius: 6px;
       overflow: hidden;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
     .hotel-card img {
-      width: 200px;
-      height: 150px;
+      width: 100%;
+      height: 180px;
       object-fit: cover;
     }
-    .hotel-info {
-      padding: 20px;
-      flex: 1;
+    .hotel-card-content {
+      padding: 1rem;
     }
-    .hotel-info h2 {
-      margin: 0 0 10px;
-      font-size: 1.5rem;
-      color: #333;
+    .hotel-card h4 {
+      margin: 0.5rem 0;
+      font-size: 1.1rem;
     }
-    .hotel-info p {
-      margin: 0;
+    .hotel-card p {
+      margin: 0.5rem 0 1rem;
       color: #666;
+    }
+    .hotel-price {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .hotel-price del {
+      color: #999;
+      margin-right: 0.5rem;
     }
   </style>
 </head>
 <body>
-  <div class="hero">
-    <h1>Los Mejores Hoteles en Tokio</h1>
-  </div>
-  <div class="hotels-section">
-    <div class="hotel-card">
-      <img src="https://source.unsplash.com/400x300/?hotel" alt="Hotel 1">
-      <div class="hotel-info">
-        <h2>Hotel Sakura View</h2>
-        <p>Ubicado en el corazón de Shinjuku, ofrece vistas espectaculares, desayuno gratuito y acceso a trenes y atracciones cercanas.</p>
+  <header>
+    <div class="logo">TravelSite</div>
+    <nav>
+      <a href="#">Routes</a>
+      <a href="#">Hotels</a>
+      <a href="#">Blog</a>
+      <a href="#">Packages</a>
+    </nav>
+  </header>
+  <section class="hero">
+    <div class="search-box">
+      <input type="text" placeholder="Origin" />
+      <input type="text" placeholder="Destination" />
+      <button>Compare Travel Modes</button>
+    </div>
+  </section>
+  <section class="content">
+    <div class="left-frame">
+      <h2>Hotels in Destination</h2>
+      <div class="hotel-card">
+        <img src="https://source.unsplash.com/400x300/?hotel1" alt="Hotel 1" />
+        <div class="hotel-card-content">
+          <h4>Seaside Resort</h4>
+          <p>Enjoy beachside luxury with ocean views and gourmet dining.</p>
+          <div class="hotel-price"><del>$199</del> $129</div>
+        </div>
+      </div>
+      <div class="hotel-card">
+        <img src="https://source.unsplash.com/400x300/?hotel2" alt="Hotel 2" />
+        <div class="hotel-card-content">
+          <h4>Mountain Lodge</h4>
+          <p>Escape to a peaceful retreat with hiking trails and fireplaces.</p>
+          <div class="hotel-price"><del>$149</del> $89</div>
+        </div>
+      </div>
+      <div class="hotel-card">
+        <img src="https://source.unsplash.com/400x300/?hotel3" alt="Hotel 3" />
+        <div class="hotel-card-content">
+          <h4>City Hotel</h4>
+          <p>Right in the heart of downtown, perfect for work and play.</p>
+          <div class="hotel-price"><del>$179</del> $99</div>
+        </div>
+      </div>
+      <div class="hotel-card">
+        <img src="https://source.unsplash.com/400x300/?hotel4" alt="Hotel 4" />
+        <div class="hotel-card-content">
+          <h4>Boutique Stay</h4>
+          <p>Charming rooms with designer flair in the cultural district.</p>
+          <div class="hotel-price"><del>$129</del> $78</div>
+        </div>
       </div>
     </div>
-    <div class="hotel-card">
-      <img src="https://source.unsplash.com/400x300/?hotel-room" alt="Hotel 2">
-      <div class="hotel-info">
-        <h2>Tokyo Zen Hotel</h2>
-        <p>Una experiencia boutique con estilo japonés tradicional y modernas comodidades. Perfecto para viajeros que buscan calma.</p>
-      </div>
+    <div class="right-frame">
+      <h2>Popular Searches</h2>
+      <ul>
+        <li><a href="#">Flights US-Origin under $500</a></li>
+        <li><a href="#">Flights US-Destination under $600</a></li>
+        <li><a href="#">Hotels in Origin under $99/night</a></li>
+        <li><a href="#">Hotels in Destination under $98/night</a></li>
+        <li><a href="#">Flight + Hotel discounts to Asia</a></li>
+      </ul>
     </div>
-  </div>
+  </section>
 </body>
 </html>
