@@ -26,22 +26,23 @@
       font-weight: 600;
     }
     .hero {
-      background: url('https://source.unsplash.com/1600x600/?travel') no-repeat center center/cover;
-      height: 500px;
+      background: url('https://source.unsplash.com/1600x400/?thailand,beach') no-repeat center center/cover;
+      height: 300px;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .search-box {
-      background-color: rgba(255, 255, 255, 0.95);
+      background: url('https://source.unsplash.com/800x400/?thailand,beach') no-repeat center center/cover;
+      background-size: cover;
       padding: 2rem;
       border-radius: 8px;
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
       max-width: 800px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
     .search-box input {
       padding: 1rem;
@@ -66,9 +67,13 @@
       padding: 2rem;
       flex-wrap: wrap;
     }
-    .right-frame, .left-frame {
+    .right-frame {
       flex: 1;
-      max-width: 600px;
+      max-width: 220px;
+    }
+    .left-frame {
+      flex: 2;
+      max-width: calc(100% - 240px);
     }
     .right-frame ul {
       list-style: none;
@@ -111,6 +116,7 @@
     .hotel-price {
       font-size: 1rem;
       font-weight: bold;
+      color: #28a745;
     }
     .hotel-price del {
       color: #999;
@@ -130,49 +136,54 @@
   </header>
   <section class="hero">
     <div class="search-box">
-      <input type="text" placeholder="Origin" />
-      <input type="text" placeholder="Destination" />
+      <input type="text" placeholder="Bangkok" />
+      <span style="align-self:center; font-weight:bold;">to</span>
+      <input type="text" placeholder="Koh Tao" />
       <button>Compare Travel Modes</button>
     </div>
   </section>
   <section class="content">
     <div class="left-frame">
-      <h2>Hotels in Destination</h2>
+      <h2>Hotels in Bangkok under $98/night</h2>
       <div class="hotel-card">
-        <img src="https://source.unsplash.com/400x300/?hotel1" alt="Hotel 1" />
-        <div class="hotel-card-content">
-          <h4>Seaside Resort</h4>
-          <p>Enjoy beachside luxury with ocean views and gourmet dining.</p>
-          <div class="hotel-price"><del>$199</del> $129</div>
-        </div>
-      </div>
-      <div class="hotel-card">
-        <img src="https://source.unsplash.com/400x300/?hotel2" alt="Hotel 2" />
-        <div class="hotel-card-content">
-          <h4>Mountain Lodge</h4>
-          <p>Escape to a peaceful retreat with hiking trails and fireplaces.</p>
-          <div class="hotel-price"><del>$149</del> $89</div>
-        </div>
-      </div>
-      <div class="hotel-card">
-        <img src="https://source.unsplash.com/400x300/?hotel3" alt="Hotel 3" />
-        <div class="hotel-card-content">
-          <h4>City Hotel</h4>
-          <p>Right in the heart of downtown, perfect for work and play.</p>
-          <div class="hotel-price"><del>$179</del> $99</div>
-        </div>
-      </div>
-      <div class="hotel-card">
-        <img src="https://source.unsplash.com/400x300/?hotel4" alt="Hotel 4" />
-        <div class="hotel-card-content">
-          <h4>Boutique Stay</h4>
-          <p>Charming rooms with designer flair in the cultural district.</p>
-          <div class="hotel-price"><del>$129</del> $78</div>
-        </div>
+      <img src="https://images.luxuryescapes.com/wayzp2jpi9kqlk1j3f4t" alt="Limited Time Lux Exclusive" />
+      <div class="hotel-card-content">
+        <h4>Ultra-Chic Five-Star Bangkok City Stay with Daily Breakfast, Club Access & Nightly Free-Flow Cocktails</h4>
+        <p>Spoil your senses with a stay at an outrageously fashionable sanctuary located in Bangkok's lively entertainment district. Part of the sophisticated, fashion-led SO/ Hotels & Resorts, this tranquil hideaway radiates contemporary cool and has mastered the art of theatricality.</p>
+        <div class="hotel-price"><del>$751</del> $339</div>
+        <a href="https://luxuryescapes.com/offer/006RF00000FPBhO2AT" target="_blank" style="color:#0071c2;font-weight:bold;text-decoration:none;">View Deal</a>
       </div>
     </div>
+    <div class="hotel-card">
+      <img src="https://images.luxuryescapes.com/2xg042x5pf9gqlw4sl9c" alt="Limited Time Lux Exclusive" />
+      <div class="hotel-card-content">
+        <h4>Sky-High Bangkok Sukhumvit Sanctuary with Rooftop Pool, Breakfast & Nightly Drinks</h4>
+        <p>Found in the vibrant heart of Sukhumvit, this stylish city escape is your perfect launchpad for discovering Bangkok’s buzzing culture, nightlife and world-famous cuisine.</p>
+        <div class="hotel-price"><del>$659</del> $289</div>
+        <a href="https://luxuryescapes.com/offer/006RF00000IQLZsYAP" target="_blank" style="color:#0071c2;font-weight:bold;text-decoration:none;">View Deal</a>
+      </div>
+    </div>
+    <div class="hotel-card">
+      <img src="https://images.luxuryescapes.com/1p8rx40g05z31xpsns3e" alt="Limited Time Lux Exclusive" />
+      <div class="hotel-card-content">
+        <h4>Secluded Thailand Riverside Serenity with Massages, Breakfast & Transfers</h4>
+        <p>Experience peaceful luxury at this design-led riverside resort where contemporary aesthetics and traditional Thai elements meet in perfect harmony.</p>
+        <div class="hotel-price"><del>$1292</del> $479</div>
+        <a href="https://luxuryescapes.com/offer/006RF00000FoywHYAR" target="_blank" style="color:#0071c2;font-weight:bold;text-decoration:none;">View Deal</a>
+      </div>
+    </div>
+    <div class="hotel-card">
+      <img src="https://images.luxuryescapes.com/tpplx3boihckf1ex3n6m" alt="Limited Time Lux Exclusive" />
+      <div class="hotel-card-content">
+        <h4>Khao Lak Secluded Beachfront Suites with Daily Breakfast, Lunch, Dinner & Massages</h4>
+        <p>Answer the irresistible call of Thailand’s Andaman coast at this blissfully secluded beachfront resort offering unrivalled access to golden beaches, turquoise waters and lush jungle.</p>
+        <div class="hotel-price"><del>$3137</del> $749</div>
+        <a href="https://luxuryescapes.com/offer/006RF00000Gmf1vYAB" target="_blank" style="color:#0071c2;font-weight:bold;text-decoration:none;">View Deal</a>
+      </div>
+    </div>
+    </div>
     <div class="right-frame">
-      <h2>Popular Searches</h2>
+      <h2>Promotions</h2>
       <ul>
         <li><a href="#">Flights US-Origin under $500</a></li>
         <li><a href="#">Flights US-Destination under $600</a></li>
