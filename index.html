@@ -90,16 +90,17 @@
       font-weight: 600;
     }
     .hotel-card-container {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
     .hotel-card {
-      background: white;
-      border-radius: 6px;
-      overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      flex: 0 0 calc(25% - 1.1rem);
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  flex: 0 0 24%;
       display: flex;
       flex-direction: column;
     }
@@ -133,6 +134,35 @@
       color: #999;
       margin-right: 0.5rem;
     }
+      @media (max-width: 1024px) {
+      .main-content {
+        flex-direction: column;
+      }
+      .left-frame, .right-frame {
+        max-width: 100%;
+        flex: 1 1 100%;
+      }
+      .hotel-card-container {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hotel-card {
+        flex: 0 0 calc(50% - 1rem);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .search-box {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-box input, .search-box button {
+        width: 100%;
+      }
+      .hotel-card {
+        flex: 0 0 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -154,10 +184,9 @@
     </div>
   </section>
   <section class="main-content">
-    <div style="display: flex; width: 100%; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-      <h2 style="margin: 0;">Best Hotel Deals</h2>
-      <h2 style="margin: 0;">Promotions</h2>
-    </div>
+    <div style="display: flex; width: 100%; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+  <h2 style="margin: 0;">Best Hotel Deals</h2>
+</div>
     <div class="left-frame">
       <div class="hotel-card-container">
         <div class="hotel-card">
