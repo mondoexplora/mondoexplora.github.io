@@ -12,13 +12,16 @@
       background-color: #f8f9fa;
     }
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background-color: white;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
     header nav a {
       margin: 0 1rem;
       text-decoration: none;
@@ -26,8 +29,11 @@
       font-weight: 600;
     }
     .hero {
-      background: url('https://source.unsplash.com/1600x400/?thailand,beach') no-repeat center center/cover;
-      height: 300px;
+  position: sticky;
+  top: 70px;
+  z-index: 999;
+  background: url('https://source.unsplash.com/1600x400/?thailand,beach') no-repeat center center/cover;
+  height: 240px;
       position: relative;
       display: flex;
       align-items: center;
