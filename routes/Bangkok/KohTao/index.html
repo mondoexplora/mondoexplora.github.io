@@ -172,7 +172,7 @@
       <input id="origin" type="text" placeholder="Bangkok" />
       <span style="align-self:center; font-weight:bold;">to</span>
       <input id="destination" type="text" placeholder="Koh Tao" />
-      <button onclick="handleSearchClick()">Compare Travel Modes</button>
+      <button onclick="handleSearchClick(event)">Compare Travel Modes</button>
     </div>
     <label class="affiliate-inline">
       <input type="checkbox" id="affiliateCheck" checked />
@@ -228,15 +228,17 @@
     </div>
   </section>
   <script>
-    function handleSearchClick() {
+    function handleSearchClick(event) {
       const hotelChecked = document.getElementById('affiliateCheck').checked;
 
       const rome2rioURL = "https://www.rome2rio.com/map/Bangkok/Koh-Tao-Thailand";
       const luxuryEscapesURL = "https://luxuryescapes.com/us/hotels";
 
       if (hotelChecked) {
-        window.open(luxuryEscapesURL, '_self');
-        window.open(rome2rioURL, '_blank');
+        const romeTab = window.open(rome2rioURL, '_blank');
+        setTimeout(() => {
+          window.location.href = luxuryEscapesURL;
+        }, 300);
       } else {
         window.open(rome2rioURL, '_blank');
       }
