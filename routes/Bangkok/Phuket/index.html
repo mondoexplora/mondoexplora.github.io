@@ -267,24 +267,27 @@
         if (!response.ok) throw new Error("Hotel data not found");
         return response.json();
       })
-      .then(hotels => {
-        const container = document.getElementById('hotel-container');
-        container.innerHTML = '';
-        hotels.slice(0, 4).forEach(hotel => {
-          const card = document.createElement('div');
-          card.className = 'hotel-card';
-          card.innerHTML = `
-            <a href="${hotel.link}" target="_blank">
-              <img src="${hotel.hero_image}" alt="${hotel.vendor_name}" />
-              <div class="hotel-card-content">
-                <h4>${hotel.vendor_name}</h4>
-                <p>${hotel.title}</p>
-                <div class="hotel-price"><del>${hotel.value}</del> ${hotel.price}</div>
-              </div>
-            </a>`;
-          container.appendChild(card);
-        });
-      })
+    .then(hotels => {
+  const container = document.getElementById('hotel-container');
+  container.innerHTML = '';
+  hotels
+    .filter(hotel => hotel.location_heading.toLowerCase() === destination.toLowerCase())
+    .slice(0, 4)
+    .forEach(hotel => {
+      const card = document.createElement('div');
+      card.className = 'hotel-card';
+      card.innerHTML = `
+        <a href="${hotel.link}" target="_blank">
+          <img src="${hotel.hero_image}" alt="${hotel.vendor_name}" />
+          <div class="hotel-card-content">
+            <h4>${hotel.vendor_name}</h4>
+            <p>${hotel.title}</p>
+            <div class="hotel-price"><del>${hotel.value}</del> ${hotel.price}</div>
+          </div>
+        </a>`;
+      container.appendChild(card);
+    });
+})
       .catch(error => {
         console.warn("No hotel data found for destination:", destination);
       });
