@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Landing Page | Compare Travel Modes & Book Hotels</title>
-  <meta name="description" content="Plan your travel routes and book top hotel deals with ExploraMondo. Discover routes, compare travel modes, and explore luxury hotel promotions near top destinations.">
+  <title id="dynamic-title">Travel Landing Page | Compare Travel Modes & Book Hotels</title>
+  <meta name="description" id="dynamic-description" content="Plan your travel routes and book top hotel deals with ExploraMondo. Discover routes, compare travel modes, and explore luxury hotel promotions near top destinations.">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -205,8 +205,8 @@
       <button id="compareBtn">Compare Travel Modes</button>
     </div>
     <div class="affiliate-inline">
-      <input type="checkbox" checked disabled>
-      <label for="affiliate">Search hotel deals on LuxuryEscapes.com</label>
+      <input type="checkbox" id="affiliateToggle" checked>
+      <label for="affiliateToggle">Search hotel deals on LuxuryEscapes.com</label>
     </div>
   </section>
   <section class="main-content" role="main">
@@ -259,6 +259,10 @@
     document.getElementById('deal-title').textContent = `Best Hotel Deals in ${destination}`;
     document.getElementById('deal-subtitle').textContent = `Explore top-rated luxury hotel deals and discounts near ${destination}. Stay in comfort, close to key locations including beaches, hospitals, and city centers.`;
 
+    // Update title and meta description dynamically
+    document.title = `${origin} to ${destination} | Compare Travel Modes & Hotel deals`;
+    document.querySelector('meta[name="description"]').setAttribute('content', `Compare travel modes from ${origin} to ${destination} in ExploraMondo. Discover routes, compare travel modes, and explore luxury hotel promotions in ${destination}`);
+
     fetch(csvUrl)
       .then(response => response.text())
       .then(text => {
@@ -284,6 +288,14 @@
           container.appendChild(card);
         });
       });
+
+    document.getElementById('compareBtn').addEventListener('click', function () {
+      const openAffiliate = document.getElementById('affiliateToggle').checked;
+      const rome2rioUrl = `https://www.rome2rio.com/map/${origin}/${destination}`;
+      const luxuryUrl = `https://luxuryescapes.com/us/hotels`;
+      if (openAffiliate) window.location.href = luxuryUrl;
+      window.open(rome2rioUrl, '_blank');
+    });
   </script>
 </body>
 </html>
