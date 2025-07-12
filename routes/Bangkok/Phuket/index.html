@@ -189,7 +189,26 @@
   </style>
 </head>
 <body>
-  <!-- header and hero omitted for brevity -->
+  <header>
+    <div class="logo"><span>EXPLORA</span><span>MONDO</span></div>
+    <nav>
+      <a href="#">Routes</a>
+      <a href="#">Hotels</a>
+      <a href="#">Blog</a>
+      <a href="#">Packages</a>
+    </nav>
+  </header>
+  <section class="hero">
+    <div class="search-box">
+      <input type="text" placeholder="Origin">
+      <input type="text" placeholder="Destination">
+      <button id="compareBtn">Compare Travel Modes</button>
+    </div>
+    <div class="affiliate-inline">
+      <input type="checkbox" checked disabled>
+      <label for="affiliate">Search hotel deals on LuxuryEscapes.com</label>
+    </div>
+  </section>
   <section class="main-content" role="main">
     <h2 id="deal-title">Best Hotel Deals</h2>
     <p id="deal-subtitle"></p>
@@ -197,7 +216,34 @@
       <!-- Hotel cards will be dynamically inserted here -->
     </div>
   </section>
-  <!-- footer omitted for brevity -->
+  <footer>
+    <nav class="footer-column">
+      <h4>About ExploraMondo</h4>
+      <ul>
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">Terms & Conditions</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-column">
+      <h4>Destinations</h4>
+      <ul>
+        <li><a href="#">Bangkok</a></li>
+        <li><a href="#">Phuket</a></li>
+        <li><a href="#">Bali</a></li>
+        <li><a href="#">Tokyo</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-column">
+      <h4>Get Help</h4>
+      <ul>
+        <li><a href="#">Support</a></li>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <p>&copy; 2025 ExploraMondo. All rights reserved.</p>
+  </footer>
   <script>
     const csvUrl = 'https://franciscojaviernunez.github.io/pruebatravel/hotels_deals.csv';
     const pathParts = window.location.pathname.split('/').filter(Boolean);
