@@ -230,10 +230,16 @@
   <script>
     function handleSearchClick() {
       const hotelChecked = document.getElementById('affiliateCheck').checked;
+
+      const rome2rioURL = "https://www.rome2rio.com/map/Bangkok/Koh-Tao-Thailand";
+      const luxuryEscapesURL = "https://luxuryescapes.com/us/hotels";
+
       if (hotelChecked) {
-        window.location.href = "https://luxuryescapes.com/us/hotels";
+        window.open(luxuryEscapesURL, '_self');
+        window.open(rome2rioURL, '_blank');
+      } else {
+        window.open(rome2rioURL, '_blank');
       }
-      window.open("https://www.rome2rio.com/map/Bangkok/Koh-Tao-Thailand", "_blank");
     }
   </script>
 </body>
