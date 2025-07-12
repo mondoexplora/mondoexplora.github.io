@@ -241,13 +241,17 @@
       });
 
     document.getElementById('compareBtn').addEventListener('click', function () {
-      const openAffiliate = document.getElementById('affiliateToggle').checked;
-      const rome2rioUrl = `https://www.rome2rio.com/s/${origin}/${destination}`;
-      const luxuryUrl = `https://luxuryescapes.com/us/hotels`;
+  const openAffiliate = document.getElementById('affiliateToggle').checked;
+  const rome2rioUrl = `https://www.rome2rio.com/s/${origin}/${destination}`;
+  const luxuryUrl = `https://luxuryescapes.com/us/hotels`;
 
-      if (openAffiliate) window.location.href = luxuryUrl;
-      window.open(rome2rioUrl, '_blank');
-    });
+  window.open(rome2rioUrl, '_blank');
+  if (openAffiliate) {
+    setTimeout(() => {
+      window.location.href = luxuryUrl;
+    }, 300);
+  }
+});
   </script>
 </body>
 </html>
