@@ -212,9 +212,7 @@
   <section class="main-content" role="main">
     <h2 id="deal-title">Best Hotel Deals</h2>
     <p id="deal-subtitle"></p>
-    <div class="hotel-card-container" id="hotel-container">
-      <!-- Hotel cards will be dynamically inserted here -->
-    </div>
+    <div class="hotel-card-container" id="hotel-container"></div>
   </section>
   <footer>
     <nav class="footer-column">
@@ -249,7 +247,6 @@
     const origin = decodeURIComponent(pathParts[pathParts.length - 2] || '');
     const destination = decodeURIComponent(pathParts[pathParts.length - 1] || '');
     const jsonUrl = `https://franciscojaviernunez.github.io/pruebatravel/data/hotels_${destination.toLowerCase()}.json`;
-
 
     const inputs = document.querySelectorAll('.search-box input');
     if (inputs.length >= 2) {
