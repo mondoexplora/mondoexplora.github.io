@@ -245,10 +245,10 @@
     <p>&copy; 2025 ExploraMondo. All rights reserved.</p>
   </footer>
   <script>
-    const csvUrl = 'https://franciscojaviernunez.github.io/pruebatravel/hotels_deals.csv';
     const pathParts = window.location.pathname.split('/').filter(Boolean);
     const origin = decodeURIComponent(pathParts[pathParts.length - 2] || '');
     const destination = decodeURIComponent(pathParts[pathParts.length - 1] || '');
+    const jsonUrl = `/pruebatravel/data/hotels_${destination.toLowerCase()}.json`;
 
     const inputs = document.querySelectorAll('.search-box input');
     if (inputs.length >= 2) {
@@ -256,23 +256,22 @@
       inputs[1].value = destination;
     }
 
+    document.title = `${origin} to ${destination} | Compare Travel Modes & Hotel deals`;
+    document.querySelector('meta[name="description"]').setAttribute(
+      'content',
+      `Compare travel modes from ${origin} to ${destination} in ExploraMondo. Discover routes, compare travel modes, and explore luxury hotel promotions in ${destination}`
+    );
     document.getElementById('deal-title').textContent = `Best Hotel Deals in ${destination}`;
     document.getElementById('deal-subtitle').textContent = `Explore top-rated luxury hotel deals and discounts near ${destination}. Stay in comfort, close to key locations including beaches, hospitals, and city centers.`;
 
-    // Update title and meta description dynamically
-    document.title = `${origin} to ${destination} | Compare Travel Modes & Hotel deals`;
-    document.querySelector('meta[name="description"]').setAttribute('content', `Compare travel modes from ${origin} to ${destination} in ExploraMondo. Discover routes, compare travel modes, and explore luxury hotel promotions in ${destination}`);
-
-    fetch(csvUrl)
-      .then(response => response.text())
-      .then(text => {
-        const rows = text.split('\n').slice(1);
-        const hotels = rows.map(row => {
-          const [link, hero_image, vendor_name, title, value, price, , location_heading] = row.split(',');
-          return { link, hero_image, vendor_name, title, value, price, location_heading };
-        }).filter(h => h.location_heading && h.location_heading.trim().toLowerCase() === destination.toLowerCase());
-
+    fetch(jsonUrl)
+      .then(response => {
+        if (!response.ok) throw new Error("Hotel data not found");
+        return response.json();
+      })
+      .then(hotels => {
         const container = document.getElementById('hotel-container');
+        container.innerHTML = '';
         hotels.slice(0, 4).forEach(hotel => {
           const card = document.createElement('div');
           card.className = 'hotel-card';
@@ -287,12 +286,16 @@
             </a>`;
           container.appendChild(card);
         });
+      })
+      .catch(error => {
+        console.warn("No hotel data found for destination:", destination);
       });
 
     document.getElementById('compareBtn').addEventListener('click', function () {
       const openAffiliate = document.getElementById('affiliateToggle').checked;
       const rome2rioUrl = `https://www.rome2rio.com/map/${origin}/${destination}`;
       const luxuryUrl = `https://luxuryescapes.com/us/hotels`;
+
       if (openAffiliate) window.location.href = luxuryUrl;
       window.open(rome2rioUrl, '_blank');
     });
