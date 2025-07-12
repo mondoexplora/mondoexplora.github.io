@@ -248,7 +248,8 @@
     const pathParts = window.location.pathname.split('/').filter(Boolean);
     const origin = decodeURIComponent(pathParts[pathParts.length - 2] || '');
     const destination = decodeURIComponent(pathParts[pathParts.length - 1] || '');
-    const jsonUrl = `/pruebatravel/data/hotels_${destination.toLowerCase()}.json`;
+    const jsonUrl = `https://franciscojaviernunez.github.io/pruebatravel/data/hotels_${destination.toLowerCase()}.json`;
+
 
     const inputs = document.querySelectorAll('.search-box input');
     if (inputs.length >= 2) {
