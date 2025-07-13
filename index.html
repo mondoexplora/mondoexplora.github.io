@@ -50,6 +50,7 @@
       border-radius: 4px;
       flex: 1;
       min-width: 200px;
+      box-sizing: border-box;
     }
     .search-box button {
       padding: 1rem 2rem;
@@ -198,8 +199,9 @@
       }
       
       .search-box input {
-        min-width: auto;
+        min-width: 0;
         width: 100%;
+        box-sizing: border-box;
       }
       
       .search-box button {
@@ -234,9 +236,13 @@
         flex-direction: column;
         align-items: stretch;
         padding: 1rem;
+        width: 95%;
+        max-width: 350px;
       }
       .search-box input, .search-box button {
         width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
       }
       .hotel-card {
         flex: 0 0 100%;
