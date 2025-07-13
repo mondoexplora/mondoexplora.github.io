@@ -47,7 +47,9 @@
       text-decoration: underline;
     }
     .hero {
-      background: url('https://images.unsplash.com/photo-1538339483600-ca243e16c6b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       height: 400px;
       display: flex;
       flex-direction: column;
@@ -326,6 +328,17 @@
         window.open(rome2rioUrl, '_blank');
       }
     });
-  </script>
+    fetch('https://franciscojaviernunez.github.io/pruebatravel/data/hero_images.json')
+  .then(response => response.json())
+  .then(heroImageMap => {
+    const destinationKey = destination.toLowerCase();
+    if (heroImageMap[destinationKey]) {
+      const heroSection = document.querySelector('.hero');
+      heroSection.style.backgroundImage = `url('${heroImageMap[destinationKey]}')`;
+    }
+  })
+  .catch(error => console.warn("Could not load hero image:", error));')`;
+  }
+</script>
 </body>
 </html>
