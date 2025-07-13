@@ -143,34 +143,39 @@
       height: 180px;
       object-fit: cover;
     }
-    .hotel-card-content {
-      padding: 1rem;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-    }
-    .hotel-card h4, .hotel-card p, .hotel-card a {
-      color: #000;
-      text-decoration: none;
-    }
-    .hotel-card h4 {
-      margin: 0.5rem 0;
-      font-size: 1.1rem;
-    }
-    .hotel-card p {
-      margin: 0.5rem 0 2.5rem;
-      font-size: 0.85rem;
-      color: #555;
-    }
-    .hotel-price {
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: #28a745;
-      position: absolute;
-      bottom: 1rem;
-      right: 1rem;
+ .hotel-card-content {
+  padding: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.hotel-card h4, .hotel-card p, .hotel-card a {
+  color: #000;
+  text-decoration: none;
+}
+.hotel-card h4 {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+.hotel-card p {
+  margin: 0.5rem 0;
+  font-size: 0.85rem;
+  color: #555;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  min-height: 2.4em;
+}
+.hotel-price {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #28a745;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
     }
     .hotel-price del {
       font-size: 1.1rem;
