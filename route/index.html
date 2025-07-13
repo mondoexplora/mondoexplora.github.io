@@ -300,7 +300,7 @@
       .then(countryCodes => {
         const destLower = destination.toLowerCase().replace(/ /g, '_');
         const countryCode = countryCodes[destLower] || ''; // Default to empty if not found
-        const jsonUrl = `https://franciscojaviernunez.github.io/pruebatravel/data/hotels/hotels_${countryCode}_${destLower}.json`;
+        const jsonUrl = `https://franciscojaviernunez.github.io/pruebatravel/data/hotels/hotels_${destLower}.json`;
 
         document.title = `${origin} to ${destination} | Compare Travel Modes & Hotel deals`;
         document.querySelector('meta[name="description"]').setAttribute(
