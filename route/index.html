@@ -290,30 +290,38 @@
   </footer>
 
   <script>
+    // Function to format destination name (replace underscores with spaces and maintain capitalization)
+    function formatDestinationName(dest) {
+      return dest.replace(/_/g, ' ');
+    }
+
     const params = new URLSearchParams(window.location.search);
     const origin = params.get('origin') || '';
     const destination = params.get('destination') || '';
+    
+    // Format the destination name for display
+    const formattedDestination = formatDestinationName(destination);
 
     const destLower = destination.toLowerCase().replace(/ /g, '_');
     const jsonUrl = `https://franciscojaviernunez.github.io/pruebatravel/data/hotels/${destLower}.json`;
 
-    document.title = `${origin} to ${destination} | Compare Travel Modes & Hotel deals`;
+    document.title = `${origin} to ${formattedDestination} | Compare Travel Modes & Hotel deals`;
     document.querySelector('meta[name="description"]').setAttribute(
       'content',
-      `Compare travel modes from ${origin} to ${destination} in ExploraMondo. Discover routes, compare travel modes, and explore luxury hotel promotions in ${destination}`
+      `Compare travel modes from ${origin} to ${formattedDestination} in ExploraMondo. Discover routes, compare travel modes, and explore luxury hotel promotions in ${formattedDestination}`
     );
 
-    document.getElementById('route-heading').textContent = `${origin} to ${destination}`;
-    document.getElementById('route-description').textContent = `Discover and compare the fastest, cheapest and most convenient travel modes between ${origin} and ${destination}, including flights, trains, buses and ferries.`;
+    document.getElementById('route-heading').textContent = `${origin} to ${formattedDestination}`;
+    document.getElementById('route-description').textContent = `Discover and compare the fastest, cheapest and most convenient travel modes between ${origin} and ${formattedDestination}, including flights, trains, buses and ferries.`;
 
     const inputs = document.querySelectorAll('.search-box input');
     if (inputs.length >= 2) {
       inputs[0].value = origin;
-      inputs[1].value = destination;
+      inputs[1].value = formattedDestination;
     }
 
-    document.getElementById('deal-title').textContent = `Best Hotel Deals in ${destination}`;
-    document.getElementById('deal-subtitle').textContent = `Explore top-rated luxury hotel deals and discounts near ${destination}. Stay in comfort, close to key locations including beaches, hospitals, and city centers.`;
+    document.getElementById('deal-title').textContent = `Best Hotel Deals in ${formattedDestination}`;
+    document.getElementById('deal-subtitle').textContent = `Explore top-rated luxury hotel deals and discounts near ${formattedDestination}. Stay in comfort, close to key locations including beaches, hospitals, and city centers.`;
 
     fetch(jsonUrl)
       .then(response => {
@@ -345,7 +353,7 @@
     fetch('https://franciscojaviernunez.github.io/pruebatravel/data/hero_images.json')
       .then(response => response.json())
       .then(heroImageMap => {
-        const destinationKey = destination.toLowerCase();
+        const destinationKey = formattedDestination.toLowerCase();
         if (heroImageMap[destinationKey]) {
           const heroSection = document.querySelector('.hero');
           heroSection.style.backgroundImage = `url('${heroImageMap[destinationKey]}')`;

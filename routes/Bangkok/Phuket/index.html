@@ -246,24 +246,33 @@
     <p>&copy; 2025 ExploraMondo. All rights reserved.</p>
   </footer>
   <script>
+    // Function to format destination name (replace underscores with spaces and maintain capitalization)
+    function formatDestinationName(dest) {
+      return dest.replace(/_/g, ' ');
+    }
+
     const pathParts = window.location.pathname.split('/').filter(Boolean);
     const origin = decodeURIComponent(pathParts[pathParts.length - 2] || '');
     const destination = decodeURIComponent(pathParts[pathParts.length - 1] || '');
+    
+    // Format the destination name for display
+    const formattedDestination = formatDestinationName(destination);
+    
     const jsonUrl = `https://franciscojaviernunez.github.io/pruebatravel/data/hotels_${destination.toLowerCase()}.json`;
 
     const inputs = document.querySelectorAll('.search-box input');
     if (inputs.length >= 2) {
       inputs[0].value = origin;
-      inputs[1].value = destination;
+      inputs[1].value = formattedDestination;
     }
 
-    document.title = `${origin} to ${destination} | Compare Travel Modes & Hotel deals`;
+    document.title = `${origin} to ${formattedDestination} | Compare Travel Modes & Hotel deals`;
     document.querySelector('meta[name="description"]').setAttribute(
       'content',
-      `Compare travel modes from ${origin} to ${destination} in ExploraMondo. Discover routes, compare travel modes, and explore luxury hotel promotions in ${destination}`
+      `Compare travel modes from ${origin} to ${formattedDestination} in ExploraMondo. Discover routes, compare travel modes, and explore luxury hotel promotions in ${formattedDestination}`
     );
-    document.getElementById('deal-title').textContent = `Best Hotel Deals in ${destination}`;
-    document.getElementById('deal-subtitle').textContent = `Explore top-rated luxury hotel deals and discounts near ${destination}. Stay in comfort, close to key locations including beaches, hospitals, and city centers.`;
+    document.getElementById('deal-title').textContent = `Best Hotel Deals in ${formattedDestination}`;
+    document.getElementById('deal-subtitle').textContent = `Explore top-rated luxury hotel deals and discounts near ${formattedDestination}. Stay in comfort, close to key locations including beaches, hospitals, and city centers.`;
 
     fetch(jsonUrl)
       .then(response => {
