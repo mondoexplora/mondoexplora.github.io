@@ -54,6 +54,20 @@
       align-items: center;
       justify-content: center;
       position: relative;
+      text-align: center;
+      padding: 2rem;
+      color: white;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .hero p.subheadline {
+      font-size: 1.1rem;
+      font-weight: 300;
+      max-width: 700px;
+      margin: 0 auto 1.5rem;
     }
     .search-box {
       background-color: rgba(255,255,255,0.95);
@@ -202,6 +216,8 @@
     </nav>
   </header>
   <section class="hero">
+    <h1 id="route-heading">Loading...</h1>
+    <p class="subheadline" id="route-description">Loading description...</p>
     <div class="search-box">
       <input type="text" placeholder="Origin">
       <input type="text" placeholder="Destination">
@@ -247,9 +263,18 @@
   </footer>
   <script>
     const params = new URLSearchParams(window.location.search);
-const origin = params.get('origin') || '';
-const destination = params.get('destination') || '';
+    const origin = params.get('origin') || '';
+    const destination = params.get('destination') || '';
     const jsonUrl = `https://franciscojaviernunez.github.io/pruebatravel/data/hotels_${destination.toLowerCase()}.json`;
+
+    document.title = `${origin} to ${destination} | Compare Travel Modes & Hotel deals`;
+    document.querySelector('meta[name="description"]').setAttribute(
+      'content',
+      `Compare travel modes from ${origin} to ${destination} in ExploraMondo. Discover routes, compare travel modes, and explore luxury hotel promotions in ${destination}`
+    );
+
+    document.getElementById('route-heading').textContent = `${origin} to ${destination}`;
+    document.getElementById('route-description').textContent = `Discover and compare the fastest, cheapest and most convenient travel modes between ${origin} and ${destination}, including flights, trains, buses and ferries.`;
 
     const inputs = document.querySelectorAll('.search-box input');
     if (inputs.length >= 2) {
@@ -257,11 +282,6 @@ const destination = params.get('destination') || '';
       inputs[1].value = destination;
     }
 
-    document.title = `${origin} to ${destination} | Compare Travel Modes & Hotel deals`;
-    document.querySelector('meta[name="description"]').setAttribute(
-      'content',
-      `Compare travel modes from ${origin} to ${destination} in ExploraMondo. Discover routes, compare travel modes, and explore luxury hotel promotions in ${destination}`
-    );
     document.getElementById('deal-title').textContent = `Best Hotel Deals in ${destination}`;
     document.getElementById('deal-subtitle').textContent = `Explore top-rated luxury hotel deals and discounts near ${destination}. Stay in comfort, close to key locations including beaches, hospitals, and city centers.`;
 
