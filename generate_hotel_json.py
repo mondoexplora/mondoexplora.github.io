@@ -49,7 +49,7 @@ for hotel in hotels:
 # Ensure output directory exists for each file
 os.makedirs("data/hotels", exist_ok=True)  # Ensure top-level directory exists
 for key, hotel_list in grouped_hotels.items():
-    filename = os.path.join("data/hotels", f"hotels_{key}.json")
+    filename = os.path.join("data/hotels", f"{key}.json")
     os.makedirs(os.path.dirname(filename), exist_ok=True)  # Create nested directories if needed
     with open(filename, "w", encoding="utf-8") as jsonfile:
         json.dump(hotel_list, jsonfile, ensure_ascii=False, indent=2)
