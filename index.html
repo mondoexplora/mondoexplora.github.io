@@ -92,17 +92,19 @@
     .hotel-card-container {
   display: flex;
   gap: 1.5rem;
-  flex-wrap: nowrap;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  min-height: 200px;
 }
     .hotel-card {
   background: white;
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  flex: 0 0 24%;
-      display: flex;
-      flex-direction: column;
+  flex: 0 0 calc(25% - 1.125rem);
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
     }
     .hotel-card img {
       width: 100%;
@@ -133,6 +135,20 @@
     .hotel-price del {
       color: #999;
       margin-right: 0.5rem;
+    }
+    .hotel-card a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      height: 100%;
+    }
+    .hotel-card a:hover {
+      text-decoration: none;
+    }
+    .hotel-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
     }
       @media (max-width: 1024px) {
       .main-content {
@@ -188,38 +204,9 @@
   <h2 style="margin: 0;">Best Hotel Deals</h2>
 </div>
     <div class="left-frame">
-      <div class="hotel-card-container">
-        <div class="hotel-card">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Hotel 1">
-          <div class="hotel-card-content">
-            <h4>Bangkok Luxury Retreat</h4>
-            <p>5-star city stay with rooftop pool and breakfast included.</p>
-            <div class="hotel-price"><del>$299</del> $149</div>
-          </div>
-        </div>
-        <div class="hotel-card">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Hotel 2">
-          <div class="hotel-card-content">
-            <h4>Koh Tao Beach Resort</h4>
-            <p>Beachfront paradise with spa and free shuttle from pier.</p>
-            <div class="hotel-price"><del>$199</del> $89</div>
-          </div>
-        </div>
-        <div class="hotel-card">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Hotel 3">
-          <div class="hotel-card-content">
-            <h4>Urban Escape Bangkok</h4>
-            <p>Modern design, central location, and rooftop dining.</p>
-            <div class="hotel-price"><del>$239</del> $109</div>
-          </div>
-        </div>
-        <div class="hotel-card">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Hotel 4">
-          <div class="hotel-card-content">
-            <h4>Tropical Hideaway Koh Tao</h4>
-            <p>Eco villas surrounded by lush gardens and beach access.</p>
-            <div class="hotel-price"><del>$279</del> $129</div>
-          </div>
+      <div class="hotel-card-container" id="hotel-container">
+        <div style="text-align: center; color: #666; width: 100%; padding: 2rem;">
+          <p>Loading hotel deals...</p>
         </div>
       </div>
     </div>
@@ -233,5 +220,83 @@
       </ul>
     </div>
   </section>
+
+  <script>
+    // Load hotel data from JSON files
+    async function loadHotelData() {
+      try {
+        console.log('Loading hotel data...');
+        // For the main page, let's load some popular destinations
+        const popularDestinations = ['bangkok', 'phuket', 'bali', 'tokyo'];
+        const allHotels = [];
+        
+        for (const destination of popularDestinations) {
+          try {
+            console.log(`Fetching hotels for ${destination}...`);
+            const response = await fetch(`data/hotels/${destination}.json`);
+            console.log(`Response for ${destination}:`, response.status, response.ok);
+            if (response.ok) {
+              const hotels = await response.json();
+              console.log(`Found ${hotels.length} hotels for ${destination}`);
+              // Take the first hotel from each destination
+              if (hotels.length > 0) {
+                allHotels.push(hotels[0]);
+              }
+            }
+          } catch (error) {
+            console.warn(`Could not load hotels for ${destination}:`, error);
+          }
+        }
+        
+        console.log(`Total hotels loaded: ${allHotels.length}`);
+        
+        // Display the hotels
+        const container = document.getElementById('hotel-container');
+        container.innerHTML = '';
+        
+        allHotels.slice(0, 4).forEach((hotel, index) => {
+          console.log(`Creating card ${index + 1} for hotel:`, hotel.vendor_name);
+          const card = document.createElement('div');
+          card.className = 'hotel-card';
+          card.innerHTML = `
+            <a href="${hotel.link}" target="_blank">
+              <img src="${hotel.hero_image}" alt="${hotel.vendor_name}" />
+              <div class="hotel-card-content">
+                <h4>${hotel.vendor_name}</h4>
+                <p>${hotel.title}</p>
+                <div class="hotel-price"><del>$${hotel.value}</del> $${hotel.price}</div>
+              </div>
+            </a>`;
+          container.appendChild(card);
+        });
+        
+        // If no hotels loaded, show a fallback message
+        if (allHotels.length === 0) {
+          container.innerHTML = '<p style="text-align: center; color: #666;">No hotel deals found. Please try again later.</p>';
+        } else {
+          console.log('Successfully displayed', allHotels.length, 'hotels');
+        }
+        
+      } catch (error) {
+        console.error('Error loading hotel data:', error);
+        const container = document.getElementById('hotel-container');
+        container.innerHTML = '<p style="text-align: center; color: #666;">Unable to load hotel deals at this time.</p>';
+      }
+    }
+
+    // Load hotels when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM loaded, starting hotel data load...');
+      alert('JavaScript is working!'); // Test if JavaScript is executing
+      // Add a simple test to make sure JavaScript is working
+      const container = document.getElementById('hotel-container');
+      if (container) {
+        console.log('Hotel container found');
+        loadHotelData();
+      } else {
+        console.error('Hotel container not found');
+      }
+    });
+  </script>
 </body>
 </html>
