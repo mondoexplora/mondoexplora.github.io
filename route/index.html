@@ -350,16 +350,9 @@
         console.warn("Hotel fetch error:", error);
       });
 
-    fetch('https://franciscojaviernunez.github.io/pruebatravel/data/hero_images.json')
-      .then(response => response.json())
-      .then(heroImageMap => {
-        const destinationKey = formattedDestination.toLowerCase();
-        if (heroImageMap[destinationKey]) {
-          const heroSection = document.querySelector('.hero');
-          heroSection.style.backgroundImage = `url('${heroImageMap[destinationKey]}')`;
-        }
-      })
-      .catch(error => console.warn("Could not load hero image:", error));
+    // Set a beautiful default hero image for all destinations
+    const heroSection = document.querySelector('.hero');
+    heroSection.style.backgroundImage = `url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1748&&auto=format&fit=crop&w=1600&q=80')`;
 
  document.getElementById('compareBtn').addEventListener('click', function () {
   const origin = document.querySelectorAll('.search-box input')[0].value.trim();
