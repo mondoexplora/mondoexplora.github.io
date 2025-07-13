@@ -230,6 +230,7 @@
       display: flex;
       flex-direction: column;
       min-height: 300px;
+      cursor: pointer;
     }
     
     .hotel-card:hover {
@@ -463,15 +464,44 @@
       color: white;
       padding: 0.4rem 0.8rem;
       border-radius: 6px;
-      text-decoration: none;
       font-weight: 600;
-      transition: background-color 0.3s ease;
       text-align: center;
       font-size: 0.8rem;
     }
     
-    .hotel-link:hover {
-      background: #e04a4f;
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 3rem;
+      padding: 2rem 0;
+    }
+    
+    .pagination-btn {
+      background: #2a3f59;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    
+    .pagination-btn:hover {
+      background: #1a2f49;
+    }
+    
+    .pagination-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .page-info {
+      font-size: 1rem;
+      color: #2a3f59;
+      font-weight: 600;
     }
     
     .loading {
@@ -681,6 +711,14 @@
         <p>Loading amazing hotel deals...</p>
       </div>
     </div>
+    
+    <div id="pagination" class="pagination" style="display: none;">
+      <button id="prev-page" class="pagination-btn">‹ Previous</button>
+      <div class="page-info">
+        <span id="current-page">1</span> of <span id="total-pages">1</span>
+      </div>
+      <button id="next-page" class="pagination-btn">Next ›</button>
+    </div>
   </section>
 
   <footer>
@@ -788,9 +826,10 @@
       }
     }
 
-    // Function to display hotels
+    // Function to display hotels with pagination
     function displayHotels(hotels) {
       const container = document.getElementById('hotel-container');
+      const pagination = document.getElementById('pagination');
       
       if (hotels.length === 0) {
         container.innerHTML = `
@@ -799,12 +838,32 @@
             <p>Sorry, no hotel deals are currently available for this location.</p>
           </div>
         `;
+        pagination.style.display = 'none';
         return;
+      }
+      
+      // Calculate pagination
+      const totalPages = Math.ceil(hotels.length / hotelsPerPage);
+      const startIndex = (currentPage - 1) * hotelsPerPage;
+      const endIndex = startIndex + hotelsPerPage;
+      const hotelsToShow = hotels.slice(startIndex, endIndex);
+      
+      // Update pagination info
+      document.getElementById('current-page').textContent = currentPage;
+      document.getElementById('total-pages').textContent = totalPages;
+      
+      // Show/hide pagination
+      if (totalPages > 1) {
+        pagination.style.display = 'flex';
+        document.getElementById('prev-page').disabled = currentPage === 1;
+        document.getElementById('next-page').disabled = currentPage === totalPages;
+      } else {
+        pagination.style.display = 'none';
       }
       
       container.innerHTML = '';
       
-      hotels.forEach((hotel, index) => {
+      hotelsToShow.forEach((hotel, index) => {
         const card = document.createElement('div');
         card.className = 'hotel-card';
         
@@ -856,12 +915,21 @@
                 <div class="detail-label">Duration</div>
                 <div class="detail-value">${durationText}</div>
               </div>
-              <a href="${hotel.link}" target="_blank" class="hotel-link">View Deal</a>
+              <div class="hotel-link">View Deal</div>
             </div>
           </div>
         `;
         
         container.appendChild(card);
+        
+        // Add click event to entire card
+        card.addEventListener('click', function(e) {
+          // Don't trigger if clicking on carousel controls or view more button
+          if (e.target.closest('.carousel-arrow') || e.target.closest('.carousel-nav') || e.target.closest('.view-more-btn')) {
+            return;
+          }
+          window.open(hotel.link, '_blank');
+        });
         
         // Add carousel functionality if multiple images
         if (images.length > 1) {
@@ -958,20 +1026,39 @@
       `;
     }
 
-    // Global variable to store hotels data
+    // Global variables to store hotels data and pagination
     let allHotels = [];
+    let currentPage = 1;
+    const hotelsPerPage = 12;
     
     // Load hotels when page loads
     document.addEventListener('DOMContentLoaded', loadHotels);
     
-    // Add event listener for price filter
+    // Add event listeners for price filter and pagination
     document.addEventListener('DOMContentLoaded', function() {
       const priceFilter = document.getElementById('price-filter');
       if (priceFilter) {
         priceFilter.addEventListener('change', function() {
+          currentPage = 1; // Reset to first page when sorting
           sortHotels(this.value);
         });
       }
+      
+      // Pagination event listeners
+      document.getElementById('prev-page').addEventListener('click', function() {
+        if (currentPage > 1) {
+          currentPage--;
+          displayHotels(allHotels);
+        }
+      });
+      
+      document.getElementById('next-page').addEventListener('click', function() {
+        const totalPages = Math.ceil(allHotels.length / hotelsPerPage);
+        if (currentPage < totalPages) {
+          currentPage++;
+          displayHotels(allHotels);
+        }
+      });
     });
     
     // Function to sort hotels by price
@@ -992,7 +1079,8 @@
           break;
       }
       
-      displayHotels(sortedHotels);
+      allHotels = sortedHotels; // Update the global array
+      displayHotels(allHotels);
     }
   </script>
 </body>
