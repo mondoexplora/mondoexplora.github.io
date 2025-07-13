@@ -148,6 +148,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      position: relative;
     }
     .hotel-card h4, .hotel-card p, .hotel-card a {
       color: #000;
@@ -165,6 +166,9 @@
       font-size: 1rem;
       font-weight: bold;
       color: #28a745;
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
     }
     .hotel-price del {
       color: #999;
@@ -207,138 +211,3 @@
     }
   </style>
 </head>
-<body>
-  <header>
-    <div class="logo"><span>EXPLORA</span><span>MONDO</span></div>
-    <nav>
-      <a href="#">Routes</a>
-      <a href="#">Hotels</a>
-      <a href="#">Blog</a>
-      <a href="#">Packages</a>
-    </nav>
-  </header>
-  <section class="hero">
-    <h1 id="route-heading">Loading...</h1>
-    <p class="subheadline" id="route-description">Loading description...</p>
-    <div class="search-box">
-      <input type="text" placeholder="Origin">
-      <input type="text" placeholder="Destination">
-      <button id="compareBtn">Compare Travel Modes</button>
-    </div>
-    <div class="affiliate-inline">
-      <input type="checkbox" id="affiliateToggle" checked>
-      <label for="affiliateToggle">Search hotel deals on LuxuryEscapes.com</label>
-    </div>
-  </section>
-  <section class="main-content" role="main">
-    <h2 id="deal-title">Best Hotel Deals</h2>
-    <p id="deal-subtitle"></p>
-    <div class="hotel-card-container" id="hotel-container"></div>
-  </section>
-  <footer>
-    <nav class="footer-column">
-      <h4>About ExploraMondo</h4>
-      <ul>
-        <li><a href="#">Our Story</a></li>
-        <li><a href="#">Terms & Conditions</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-      </ul>
-    </nav>
-    <nav class="footer-column">
-      <h4>Destinations</h4>
-      <ul>
-        <li><a href="#">Bangkok</a></li>
-        <li><a href="#">Phuket</a></li>
-        <li><a href="#">Bali</a></li>
-        <li><a href="#">Tokyo</a></li>
-      </ul>
-    </nav>
-    <nav class="footer-column">
-      <h4>Get Help</h4>
-      <ul>
-        <li><a href="#">Support</a></li>
-        <li><a href="#">FAQs</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-    <p>&copy; 2025 ExploraMondo. All rights reserved.</p>
-  </footer>
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const origin = params.get('origin') || '';
-    const destination = params.get('destination') || '';
-    const jsonUrl = `https://franciscojaviernunez.github.io/pruebatravel/data/hotels_${destination.toLowerCase()}.json`;
-
-    document.title = `${origin} to ${destination} | Compare Travel Modes & Hotel deals`;
-    document.querySelector('meta[name="description"]').setAttribute(
-      'content',
-      `Compare travel modes from ${origin} to ${destination} in ExploraMondo. Discover routes, compare travel modes, and explore luxury hotel promotions in ${destination}`
-    );
-
-    document.getElementById('route-heading').textContent = `${origin} to ${destination}`;
-    document.getElementById('route-description').textContent = `Discover and compare the fastest, cheapest and most convenient travel modes between ${origin} and ${destination}, including flights, trains, buses and ferries.`;
-
-    const inputs = document.querySelectorAll('.search-box input');
-    if (inputs.length >= 2) {
-      inputs[0].value = origin;
-      inputs[1].value = destination;
-    }
-
-    document.getElementById('deal-title').textContent = `Best Hotel Deals in ${destination}`;
-    document.getElementById('deal-subtitle').textContent = `Explore top-rated luxury hotel deals and discounts near ${destination}. Stay in comfort, close to key locations including beaches, hospitals, and city centers.`;
-
-    fetch(jsonUrl)
-      .then(response => {
-        if (!response.ok) throw new Error("Hotel data not found");
-        return response.json();
-      })
-      .then(hotels => {
-        const container = document.getElementById('hotel-container');
-        container.innerHTML = '';
-        hotels.slice(0, 4).forEach(hotel => {
-          const card = document.createElement('div');
-          card.className = 'hotel-card';
-          card.innerHTML = `
-            <a href="${hotel.link}" target="_blank">
-              <img src="${hotel.hero_image}" alt="${hotel.vendor_name}" />
-              <div class="hotel-card-content">
-                <h4>${hotel.vendor_name}</h4>
-                <p>${hotel.title}</p>
-                <div class="hotel-price"><del>${hotel.value}</del> ${hotel.price}</div>
-              </div>
-            </a>`;
-          container.appendChild(card);
-        });
-      })
-      .catch(error => {
-        console.warn("Hotel fetch error:", error);
-      });
-
-    document.getElementById('compareBtn').addEventListener('click', function () {
-      const openAffiliate = document.getElementById('affiliateToggle').checked;
-      const rome2rioUrl = `https://www.rome2rio.com/s/${origin}/${destination}`;
-      const luxuryUrl = `https://luxuryescapes.com/us/hotels`;
-
-      if (openAffiliate) {
-        window.location.href = luxuryUrl;
-        setTimeout(() => {
-          window.open(rome2rioUrl, '_blank');
-        }, 100);
-      } else {
-        window.open(rome2rioUrl, '_blank');
-      }
-    });
-
-    fetch('https://franciscojaviernunez.github.io/pruebatravel/data/hero_images.json')
-      .then(response => response.json())
-      .then(heroImageMap => {
-        const destinationKey = destination.toLowerCase();
-        if (heroImageMap[destinationKey]) {
-          const heroSection = document.querySelector('.hero');
-          heroSection.style.backgroundImage = `url('${heroImageMap[destinationKey]}')`;
-        }
-      })
-      .catch(error => console.warn("Could not load hero image:", error));
-  </script>
-</body>
-</html>
