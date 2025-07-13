@@ -63,7 +63,9 @@
     }
     
     .hero {
-      background: linear-gradient(135deg, #2a3f59 0%, #4a5f79 100%);
+      background: linear-gradient(135deg, rgba(42, 63, 89, 0.8) 0%, rgba(74, 95, 121, 0.8) 100%), url('https://images.unsplash.com/photo-1468413253725-0d5181091126?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      background-size: cover;
+      background-position: center;
       height: 200px;
       display: flex;
       flex-direction: column;
@@ -89,26 +91,72 @@
     }
     
     .main-content {
-      padding: 3rem 2rem;
+      padding: 0 2rem 3rem 2rem;
       max-width: 1200px;
       margin: 0 auto;
     }
     
+    .hero-section {
+      position: relative;
+      background: linear-gradient(135deg, rgba(42, 63, 89, 0.4) 0%, rgba(74, 95, 121, 0.4) 100%), url('https://images.unsplash.com/photo-1468413253725-0d5181091126?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      background-size: cover;
+      background-position: center;
+      margin: 0 -2rem 0 -2rem;
+      padding: 3rem 0 4rem 0;
+      color: white;
+    }
+    
+    .hero-section .page-header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .logo-overlay {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      font-size: 1.5rem;
+      color: white;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      backdrop-filter: blur(10px);
+    }
+    
+    @media (min-width: 1200px) {
+      .logo-overlay {
+        right: calc(50% - 600px + 2rem);
+      }
+    }
+    
+    .logo-overlay span:first-child {
+      font-weight: 100;
+    }
+    
+    .logo-overlay span:last-child {
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.3);
+      color: #2a3f59;
+      padding: 0 0.25rem;
+      border-radius: 2px;
+    }
+    
     .page-header {
       text-align: left;
-      margin-bottom: 2rem;
+      color: white;
     }
     
     .page-header h1 {
       font-size: 2.5rem;
       font-weight: 700;
-      color: #000;
+      color: white;
       margin-bottom: 1rem;
     }
     
     .page-header p {
       font-size: 1.1rem;
-      color: #000;
+      color: white;
       max-width: 600px;
       margin: 0;
     }
@@ -142,7 +190,7 @@
     .filter-label {
       font-size: 0.9rem;
       font-weight: 600;
-      color: #2a3f59;
+      color: white;
     }
     
     .filter-select {
@@ -357,8 +405,6 @@
       align-items: center;
       margin-top: auto;
       padding: 0.6rem;
-      background: #f8f9fa;
-      border-radius: 8px;
     }
     
     .detail-item {
@@ -608,20 +654,10 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo"><span>EXPLORA</span><span>MONDO</span></div>
-    <nav>
-      <a href="../index.html">Home</a>
-      <a href="../route/">Routes</a>
-      <a href="#">Hotels</a>
-      <a href="#">Blog</a>
-      <a href="#">Packages</a>
-    </nav>
-  </header>
 
 
-
-  <section class="main-content">
+  <section class="hero-section">
+    <div class="logo-overlay"><span>EXPLORA</span><span>MONDO</span></div>
     <div class="page-header">
       <h1 id="page-title">Best Hotel Deals</h1>
       <div class="header-row">
@@ -636,7 +672,9 @@
         </div>
       </div>
     </div>
-    
+  </section>
+
+  <section class="main-content">
     <div id="hotel-container" class="hotel-grid">
       <div class="loading">
         <div class="loading-spinner"></div>
