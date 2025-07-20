@@ -71,83 +71,18 @@ def destination_page(destination_name):
         document.querySelector('meta[name="twitter:description"]').setAttribute('content', seoDescription);
         document.querySelector('link[rel="canonical"]').setAttribute('href', window.location.href);
 
-        document.getElementById('destination-title').textContent = `Best Hotel Deals in ${{formattedDestination}}`;
-        document.getElementById('destination-description').textContent = `Discover amazing hotel deals and luxury accommodations in ${{formattedDestination}}. Book with confidence and enjoy exclusive discounts.`;
+        // Update page content safely
+        const titleElement = document.getElementById('destination-title');
+        const descriptionElement = document.getElementById('destination-description');
+        
+        if (titleElement) titleElement.textContent = `Best Hotel Deals in ${{formattedDestination}}`;
+        if (descriptionElement) descriptionElement.textContent = `Discover amazing hotel deals and luxury accommodations in ${{formattedDestination}}. Book with confidence and enjoy exclusive discounts.`;
 
-        console.log('Fetching hotel data from:', jsonUrl);
-        fetch(jsonUrl)
-          .then(response => {{
-            console.log('Response status:', response.status);
-            if (!response.ok) throw new Error("Hotel data not found");
-            return response.json();
-          }})
-          .then(hotels => {{
-            console.log('Hotels loaded:', hotels.length);
-            allHotels = hotels;
-            displayHotels(hotels);
-          }})
-          .catch(error => {{
-            console.warn("Hotel fetch error:", error);
-            const container = document.getElementById('hotel-container');
-            container.innerHTML = '<p>No hotel data available for this destination. Error: ' + error.message + '</p>';
-          }});
-
-        // Enhanced compare button functionality
-        document.getElementById('compareBtn').addEventListener('click', function () {{
-          const origin = document.getElementById('origin-input').value.trim();
-          const destination = document.getElementById('destination-input').value.trim();
-          const rome2rioUrl = `https://www.rome2rio.com/map/${{origin}}/${{destination}}`;
-          const luxuryUrl = `https://luxuryescapes.com/us/hotels`;
-          const openAffiliate = document.getElementById('affiliateToggle').checked;
-
-          // Open Rome2Rio in new tab
-          window.open(rome2rioUrl, '_blank');
-
-          // If affiliate toggle is checked, redirect current tab to LuxuryEscapes
-          if (openAffiliate) {{
-            setTimeout(() => {{
-              window.location.href = luxuryUrl;
-            }}, 1000);
-          }}
-        }});
-
-        // Add input change handlers for dynamic URL updates
-        document.getElementById('origin-input').addEventListener('change', updateRoute);
-        document.getElementById('destination-input').addEventListener('change', updateRoute);
-
-        function updateRoute() {{
-          const newOrigin = document.getElementById('origin-input').value.trim();
-          const newDestination = document.getElementById('destination-input').value.trim();
-          
-          if (newOrigin && newDestination) {{
-            const newUrl = `/route/${{newOrigin.toLowerCase().replace(/ /g, '-')}}/${{newDestination.toLowerCase().replace(/ /g, '-')}}`;
-            window.history.pushState({{}}, '', newUrl);
-            
-            // Update page content
-            const formattedNewOrigin = formatDestinationName(newOrigin);
-            const formattedNewDestination = formatDestinationName(newDestination);
-            
-            document.getElementById('route-heading').textContent = `${{formattedNewOrigin}} to ${{formattedNewDestination}}`;
-            document.getElementById('route-description').textContent = `Discover and compare the fastest, cheapest and most convenient travel modes between ${{formattedNewOrigin}} and ${{formattedNewDestination}}, including flights, trains, buses and ferries.`;
-            document.getElementById('breadcrumb-current').textContent = `${{formattedNewOrigin}} to ${{formattedNewDestination}}`;
-            document.getElementById('deal-title').textContent = `Best Hotel Deals in ${{formattedNewDestination}}`;
-          }}
-        }}
-
-        // Set hero background
-        const heroSection = document.querySelector('.hero');
-        heroSection.style.backgroundImage = `url('https://images.unsplash.com/photo-1468413253725-0d5181091126?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`;
-
-        // Add sorting functionality
+        // Global variables and functions
         let allHotels = [];
         
-        document.getElementById('sortSelect').addEventListener('change', function() {{
-          const sortType = this.value;
-          sortHotels(sortType);
-        }});
-
         function sortHotels(sortType) {{
-          if (!allHotels.length) return;
+          if (!allHotels || !allHotels.length) return;
           
           let sortedHotels = [...allHotels];
           
@@ -173,7 +108,14 @@ def destination_page(destination_name):
 
         function displayHotels(hotels) {{
           const container = document.getElementById('hotel-container');
+          if (!container) return;
+          
           container.innerHTML = '';
+          if (!hotels || !hotels.length) {{
+            container.innerHTML = '<p>No hotel data available for this destination.</p>';
+            return;
+          }}
+          
           hotels.slice(0, 8).forEach(hotel => {{
             const card = document.createElement('div');
             card.className = 'hotel-card';
@@ -187,12 +129,51 @@ def destination_page(destination_name):
                   <h4>${{hotel.vendor_name}}</h4>
                   <div class="hotel-location">${{hotel.location_heading}}, ${{hotel.location_subheading}}</div>
                   <p>${{hotel.title.length > 100 ? hotel.title.substring(0, 100) + '...' : hotel.title}}</p>
-                  <a href="${{hotel.link}}" target="_blank" class="view-more-link">View More</a>
+                  <a href="${{hotel.link}}" target="_blank" class="view-deal-btn">View Deal</a>
                 </div>
               </a>`;
             container.appendChild(card);
           }});
         }}
+
+        // Wait for DOM to be ready before doing anything
+        document.addEventListener('DOMContentLoaded', function() {{
+          // Set hero background
+          const heroSection = document.querySelector('.hero-section');
+          if (heroSection) {{
+            heroSection.style.backgroundImage = `url('https://images.unsplash.com/photo-1468413253725-0d5181091126?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`;
+          }}
+          
+          // Add sorting functionality
+          const sortSelect = document.getElementById('sortSelect');
+          if (sortSelect) {{
+            sortSelect.addEventListener('change', function() {{
+              const sortType = this.value;
+              sortHotels(sortType);
+            }});
+          }}
+
+          // Load hotel data
+          console.log('Fetching hotel data from:', jsonUrl);
+          fetch(jsonUrl)
+            .then(response => {{
+              console.log('Response status:', response.status);
+              if (!response.ok) throw new Error("Hotel data not found");
+              return response.json();
+            }})
+            .then(hotels => {{
+              console.log('Hotels loaded:', hotels.length);
+              allHotels = hotels;
+              displayHotels(hotels);
+            }})
+            .catch(error => {{
+              console.error("Hotel fetch error:", error);
+              const container = document.getElementById('hotel-container');
+              if (container) {{
+                container.innerHTML = `<p>No hotel data available for this destination. Error: ${{error.message}}</p>`;
+              }}
+            }});
+        }});
     </script>
     '''
     
@@ -448,18 +429,16 @@ def route_page(from_location, to_location):
               const card = document.createElement('div');
               card.className = 'hotel-card';
               card.innerHTML = `
-                <a href="${{hotel.link}}" target="_blank">
-                  <div class="hotel-image-container">
-                    <img src="${{hotel.hero_image}}" alt="${{hotel.vendor_name}}" />
-                    <div class="hotel-price"><del>$${{hotel.value}}</del> $${{hotel.price}}</div>
-                  </div>
-                  <div class="hotel-card-content">
-                    <h4>${{hotel.vendor_name}}</h4>
-                    <div class="hotel-location">${{hotel.location_heading}}, ${{hotel.location_subheading}}</div>
-                    <p>${{hotel.title.length > 100 ? hotel.title.substring(0, 100) + '...' : hotel.title}}</p>
-                    <a href="${{hotel.link}}" target="_blank" class="view-more-link">View More</a>
-                  </div>
-                </a>`;
+                <div class="hotel-image-container">
+                  <img src="${{hotel.hero_image}}" alt="${{hotel.vendor_name}}" />
+                  <div class="hotel-price"><del>$${{hotel.value}}</del> $${{hotel.price}}</div>
+                </div>
+                <div class="hotel-card-content">
+                  <h4>${{hotel.vendor_name}}</h4>
+                  <div class="hotel-location">${{hotel.location_heading}}, ${{hotel.location_subheading}}</div>
+                  <p>${{hotel.title.length > 100 ? hotel.title.substring(0, 100) + '...' : hotel.title}}</p>
+                  <a href="${{hotel.link}}" target="_blank" class="view-deal-btn">View Deal</a>
+                </div>`;
               container.appendChild(card);
             }});
           }})

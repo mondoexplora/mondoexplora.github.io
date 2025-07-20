@@ -61,7 +61,15 @@
     </div>
   </section>
 
-  <!-- New Travel Modes Comparison Section -->
+  <section class="main-content" role="main">
+    <div class="section-header">
+      <h2 id="deal-title">Best Hotel Deals</h2>
+      <p id="deal-subtitle"></p>
+    </div>
+    <div class="hotel-card-container" id="hotel-container"></div>
+  </section>
+
+  <!-- Travel Modes Comparison Section -->
   <section class="travel-modes" id="travel-modes-section">
     <div class="section-header">
       <h2>Travel Options</h2>
@@ -70,14 +78,6 @@
     <div class="travel-modes-grid" id="travel-modes-container">
       <!-- Travel mode cards will be populated here -->
     </div>
-  </section>
-
-  <section class="main-content" role="main">
-    <div class="section-header">
-      <h2 id="deal-title">Best Hotel Deals</h2>
-      <p id="deal-subtitle"></p>
-    </div>
-    <div class="hotel-card-container" id="hotel-container"></div>
   </section>
 
   <!-- New Quick Tips Section -->
@@ -311,18 +311,16 @@
           const card = document.createElement('div');
           card.className = 'hotel-card';
           card.innerHTML = `
-            <a href="${hotel.link}" target="_blank">
-              <div class="hotel-image-container">
-                <img src="${hotel.hero_image}" alt="${hotel.vendor_name}" />
-                <div class="hotel-price"><del>$${hotel.value}</del> $${hotel.price}</div>
-              </div>
-              <div class="hotel-card-content">
-                <h4>${hotel.vendor_name}</h4>
-                <div class="hotel-location">${hotel.location_heading}, ${hotel.location_subheading}</div>
-                <p>${hotel.title.length > 100 ? hotel.title.substring(0, 100) + '...' : hotel.title}</p>
-                <a href="${hotel.link}" target="_blank" class="view-more-link">View More</a>
-              </div>
-            </a>`;
+            <div class="hotel-image-container">
+              <img src="${hotel.hero_image}" alt="${hotel.vendor_name}" />
+              <div class="hotel-price"><del>$${hotel.value}</del> $${hotel.price}</div>
+            </div>
+            <div class="hotel-card-content">
+              <h4>${hotel.vendor_name}</h4>
+              <div class="hotel-location">${hotel.location_heading}, ${hotel.location_subheading}</div>
+              <p>${hotel.title.length > 100 ? hotel.title.substring(0, 100) + '...' : hotel.title}</p>
+              <a href="${hotel.link}" target="_blank" class="view-deal-btn">View Deal</a>
+            </div>`;
           container.appendChild(card);
         });
       })

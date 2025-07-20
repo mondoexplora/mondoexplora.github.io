@@ -166,6 +166,7 @@ body {
   height: auto;
   transition: all 0.3s ease;
   border: 1px solid #f1f3f4;
+  position: relative !important;
 }
 
 .hotel-card:hover {
@@ -313,6 +314,26 @@ body {
 
 .view-more-link:hover {
   text-decoration: underline;
+}
+
+.view-deal-btn {
+  display: inline-block !important;
+  color: #000000 !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  transition: color 0.3s ease !important;
+  position: absolute !important;
+  bottom: 1rem !important;
+  right: 1rem !important;
+  z-index: 10 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.view-deal-btn:hover {
+  color: #333333 !important;
+  text-decoration: underline !important;
 }
 
 
@@ -516,6 +537,12 @@ footer p {
     font-size: 11px;
   }
   
+  .view-deal-btn {
+    font-size: 12px !important;
+    bottom: 0.75rem !important;
+    right: 0.75rem !important;
+  }
+  
   footer {
     padding: 1.5rem;
     gap: 1.5rem;
@@ -559,5 +586,11 @@ footer p {
   
   .hotel-image-container {
     height: 200px;
+  }
+  
+  .view-deal-btn {
+    font-size: 11px !important;
+    bottom: 0.5rem !important;
+    right: 0.5rem !important;
   }
 } 

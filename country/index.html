@@ -499,7 +499,7 @@
                         <p class="deal-description">Experience the perfect blend of luxury and comfort in this stunning destination. Discover amazing deals on top-rated accommodations.</p>
                         <p class="deal-subtitle">${destination.hotelCount} hotels available</p>
                         <div class="deal-overlay">
-                            <a href="#" class="deal-btn" onclick="handleDestinationClick('${destination.location}'); return false;">View Deals</a>
+                            <a href="#" class="view-deal-btn" onclick="handleDestinationClick('${destination.location}'); return false;">View Deal</a>
                         </div>
                     </div>
                 `;
@@ -507,7 +507,7 @@
                 // Add click handler for destination
                 dealCard.addEventListener('click', function(e) {
                     // Don't trigger if clicking on the CTA button (it has its own handler)
-                    if (e.target.closest('.deal-btn')) {
+                    if (e.target.closest('.view-deal-btn')) {
                         return;
                     }
                     
@@ -607,7 +607,7 @@
                             <p class="deal-description">Experience the perfect blend of luxury and comfort in this stunning destination. Discover amazing deals on top-rated accommodations.</p>
                             <p class="deal-subtitle">Multiple hotels available</p>
                             <div class="deal-overlay">
-                                <a href="#" class="deal-btn" onclick="handleDestinationClick('${destination.location}'); return false;">View Deals</a>
+                                <a href="#" class="view-deal-btn" onclick="handleDestinationClick('${destination.location}'); return false;">View Deal</a>
                             </div>
                         </div>
                     `;
@@ -615,7 +615,7 @@
                     // Add click handler for destination
                     dealCard.addEventListener('click', function(e) {
                         // Don't trigger if clicking on the CTA button (it has its own handler)
-                        if (e.target.closest('.deal-btn')) {
+                        if (e.target.closest('.view-deal-btn')) {
                             return;
                         }
                         
@@ -643,7 +643,7 @@
                             <p class="deal-description">Experience the perfect blend of luxury and comfort in this stunning destination. Discover amazing deals on top-rated accommodations.</p>
                             <p class="deal-subtitle">Multiple hotels available</p>
                             <div class="deal-overlay">
-                                <a href="#" class="deal-btn" onclick="handleDestinationClick('${destination.location}'); return false;">View Deals</a>
+                                <a href="#" class="view-deal-btn" onclick="handleDestinationClick('${destination.location}'); return false;">View Deal</a>
                             </div>
                         </div>
                     `;
@@ -651,7 +651,7 @@
                     // Add click handler for destination
                     dealCard.addEventListener('click', function(e) {
                         // Don't trigger if clicking on the CTA button (it has its own handler)
-                        if (e.target.closest('.deal-btn')) {
+                        if (e.target.closest('.view-deal-btn')) {
                             return;
                         }
                         
