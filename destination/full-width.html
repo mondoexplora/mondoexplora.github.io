@@ -508,9 +508,9 @@
   </footer>
 
   <script>
-    // Function to format location name (replace underscores with spaces and maintain capitalization)
+    // Function to format location name (replace underscores and hyphens with spaces and capitalize properly)
     function formatLocationName(location) {
-      return location.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      return location.replace(/_/g, ' ').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     }
 
     // Function to get location from URL parameter

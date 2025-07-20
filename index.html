@@ -10,6 +10,8 @@
       margin: 0;
       font-family: 'Inter', sans-serif;
       background-color: #f8f9fa;
+      font-size: 14px;
+      line-height: 1.5;
     }
     header {
       display: flex;
@@ -24,6 +26,7 @@
       text-decoration: none;
       color: #333;
       font-weight: 600;
+      font-size: 13px;
     }
     .hero {
       background: url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1748&&auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
@@ -44,8 +47,8 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
     .search-box input {
-      padding: 1rem;
-      font-size: 1rem;
+      padding: 0.75rem;
+      font-size: 14px;
       border: 1px solid #ccc;
       border-radius: 4px;
       flex: 1;
@@ -53,12 +56,13 @@
       box-sizing: border-box;
     }
     .search-box button {
-      padding: 1rem 2rem;
+      padding: 0.75rem 1.5rem;
       background-color: #ff5a5f;
       color: white;
       border: none;
       border-radius: 4px;
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 13px;
       cursor: pointer;
     }
     .main-content {
@@ -81,7 +85,7 @@
     }
     .right-frame li a {
       display: block;
-      padding: 1rem;
+      padding: 0.75rem;
       background: white;
       border: 1px solid #eee;
       margin-bottom: 1rem;
@@ -89,6 +93,7 @@
       text-decoration: none;
       color: #0071c2;
       font-weight: 600;
+      font-size: 13px;
     }
     .hotel-card-container {
   display: flex;
@@ -96,6 +101,7 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   min-height: 200px;
+  align-items: start;
 }
     .hotel-card {
   background: white;
@@ -106,6 +112,8 @@
   display: flex;
   flex-direction: column;
   min-width: 250px;
+  min-height: 350px;
+  height: auto;
     }
     .hotel-card img {
       width: 100%;
@@ -117,21 +125,41 @@
       flex-grow: 1;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      position: relative;
+      min-height: 150px;
+      height: auto;
+      padding-bottom: 4rem;
     }
     .hotel-card h4 {
-      margin: 0.5rem 0;
-      font-size: 1.1rem;
+      margin: 0.5rem 0 0.25rem 0;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    
+    .hotel-location {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
     }
     .hotel-card p {
       margin: 0.5rem 0 1rem;
       color: #666;
-      font-size: 0.9rem;
+      font-size: 12px;
+      line-height: 1.4;
+      margin-bottom: 0;
     }
     .hotel-price {
-      font-size: 1rem;
-      font-weight: bold;
+      font-size: 14px;
+      font-weight: 600;
       color: #28a745;
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     .hotel-price del {
       color: #999;
@@ -180,7 +208,7 @@
       }
       
       header nav a {
-        font-size: 0.9rem;
+        font-size: 12px;
         margin: 0 0.5rem;
       }
       
@@ -223,11 +251,26 @@
         flex: none;
         width: 100%;
         min-width: auto;
+        position: relative;
+      }
+      
+      .hotel-card-content {
+        position: relative;
+      }
+      
+      .hotel-price {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 0.5rem 0.75rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       }
       
       .right-frame ul li a {
         padding: 0.75rem;
-        font-size: 0.9rem;
+        font-size: 12px;
       }
     }
 
@@ -278,7 +321,7 @@
   </section>
   <section class="main-content">
     <div style="display: flex; width: 100%; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
-  <h2 style="margin: 0;">Best Hotel Deals</h2>
+  <h2 style="margin: 0; font-size: 1.5rem; font-weight: 600;">Best Hotel Deals</h2>
 </div>
     <div class="left-frame">
       <div class="hotel-card-container" id="hotel-container">
@@ -340,6 +383,7 @@
               <img src="${hotel.hero_image}" alt="${hotel.vendor_name}" />
               <div class="hotel-card-content">
                 <h4>${hotel.vendor_name}</h4>
+                <div class="hotel-location">${hotel.location_heading}, ${hotel.location_subheading}</div>
                 <p>${hotel.title}</p>
                 <div class="hotel-price"><del>$${hotel.value}</del> $${hotel.price}</div>
               </div>
