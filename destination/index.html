@@ -19,7 +19,7 @@
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1468413253725-0d5181091126?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
   <link rel="canonical" id="canonical-url" href="">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/destination.css?v=2">
+  <link rel="stylesheet" href="../css/destination.css?v=3">
   
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -116,9 +116,6 @@
       return params.get('d') || '';
     }
 
-    // Initialize allHotels variable
-    let allHotels = [];
-    
     const destination = getDestinationFromPath();
     const formattedDestination = formatDestinationName(destination);
     const destLower = destination.toLowerCase().replace(/ /g, '_');
@@ -126,6 +123,8 @@
 
     // Wait for DOM to be ready before doing anything
     document.addEventListener('DOMContentLoaded', function() {
+      // Initialize allHotels variable
+      let allHotels = [];
       // Update meta tags dynamically
       const seoTitle = `Best Hotel Deals in ${formattedDestination} | Luxury Hotels & Resorts | ExploraMondo`;
       const seoDescription = `Find the best hotel deals in ${formattedDestination}. Compare prices, read reviews, and book luxury hotels with exclusive discounts. Best rates guaranteed.`;
@@ -194,57 +193,57 @@
             container.innerHTML = `<p>No hotel data available for this destination. Error: ${error.message}</p>`;
           }
         });
-    });
 
-    function sortHotels(sortType) {
-      if (!allHotels.length) return;
-      
-      let sortedHotels = [...allHotels];
-      
-      switch(sortType) {
-        case 'price-low':
-          sortedHotels.sort((a, b) => a.price - b.price);
-          break;
-        case 'price-high':
-          sortedHotels.sort((a, b) => b.price - a.price);
-          break;
-        case 'name':
-          sortedHotels.sort((a, b) => a.vendor_name.localeCompare(b.vendor_name));
-          break;
-        case 'rating':
-          // For now, keep original order since we don't have ratings
-          break;
-        default:
-          break;
-      }
-      
-      displayHotels(sortedHotels);
-    }
-
-    function displayHotels(hotels) {
-      const container = document.getElementById('hotel-container');
-      container.innerHTML = '';
-      hotels.slice(0, 8).forEach(hotel => {
-        const card = document.createElement('div');
-        card.className = 'hotel-card';
-        card.innerHTML = `
-          <a href="${hotel.link}" target="_blank">
-            <div class="hotel-image-container">
-              <img src="${hotel.hero_image}" alt="${hotel.vendor_name}" />
-              <div class="hotel-price"><del>$${hotel.value}</del> $${hotel.price}</div>
-            </div>
-            <div class="hotel-card-content">
-              <h4>${hotel.vendor_name}</h4>
-              <div class="hotel-location">${hotel.location_heading}, ${hotel.location_subheading}</div>
-              <p>${hotel.title.length > 100 ? hotel.title.substring(0, 100) + '...' : hotel.title}</p>
-              <a href="${hotel.link}" target="_blank" class="view-more-link">View More</a>
-            </div>
-          </a>`;
-        container.appendChild(card);
+      function sortHotels(sortType) {
+        if (!allHotels.length) return;
         
-        // "View More" links are always visible for better UX
-      });
-    }
+        let sortedHotels = [...allHotels];
+        
+        switch(sortType) {
+          case 'price-low':
+            sortedHotels.sort((a, b) => a.price - b.price);
+            break;
+          case 'price-high':
+            sortedHotels.sort((a, b) => b.price - a.price);
+            break;
+          case 'name':
+            sortedHotels.sort((a, b) => a.vendor_name.localeCompare(b.vendor_name));
+            break;
+          case 'rating':
+            // For now, keep original order since we don't have ratings
+            break;
+          default:
+            break;
+        }
+        
+        displayHotels(sortedHotels);
+      }
+
+      function displayHotels(hotels) {
+        const container = document.getElementById('hotel-container');
+        container.innerHTML = '';
+        hotels.slice(0, 8).forEach(hotel => {
+          const card = document.createElement('div');
+          card.className = 'hotel-card';
+          card.innerHTML = `
+            <a href="${hotel.link}" target="_blank">
+              <div class="hotel-image-container">
+                <img src="${hotel.hero_image}" alt="${hotel.vendor_name}" />
+                <div class="hotel-price"><del>$${hotel.value}</del> $${hotel.price}</div>
+              </div>
+              <div class="hotel-card-content">
+                <h4>${hotel.vendor_name}</h4>
+                <div class="hotel-location">${hotel.location_heading}, ${hotel.location_subheading}</div>
+                <p>${hotel.title.length > 100 ? hotel.title.substring(0, 100) + '...' : hotel.title}</p>
+                <a href="${hotel.link}" target="_blank" class="view-more-link">View More</a>
+              </div>
+            </a>`;
+          container.appendChild(card);
+          
+          // "View More" links are always visible for better UX
+        });
+      }
+    });
   </script>
 </body>
 </html> 
