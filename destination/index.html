@@ -124,50 +124,48 @@
     const destLower = destination.toLowerCase().replace(/ /g, '_');
     const jsonUrl = `/data/hotels/${destLower}.json`;
 
-    // Update meta tags dynamically
-    const seoTitle = `Best Hotel Deals in ${formattedDestination} | Luxury Hotels & Resorts | ExploraMondo`;
-    const seoDescription = `Find the best hotel deals in ${formattedDestination}. Compare prices, read reviews, and book luxury hotels with exclusive discounts. Best rates guaranteed.`;
-    const seoKeywords = `hotels in ${formattedDestination}, ${formattedDestination} hotel deals, luxury hotels ${formattedDestination}, best hotels ${formattedDestination}, hotel booking ${formattedDestination}`;
-    
-    document.title = seoTitle;
-    document.querySelector('meta[name="description"]').setAttribute('content', seoDescription);
-    document.querySelector('meta[name="keywords"]').setAttribute('content', seoKeywords);
-    document.querySelector('meta[property="og:title"]').setAttribute('content', seoTitle);
-    document.querySelector('meta[property="og:description"]').setAttribute('content', seoDescription);
-    document.querySelector('meta[property="og:url"]').setAttribute('content', window.location.href);
-    document.querySelector('meta[name="twitter:title"]').setAttribute('content', seoTitle);
-    document.querySelector('meta[name="twitter:description"]').setAttribute('content', seoDescription);
-    document.querySelector('link[rel="canonical"]').setAttribute('href', window.location.href);
-
-    document.getElementById('destination-title').textContent = `Best Hotel Deals in ${formattedDestination}`;
-    document.getElementById('destination-description').textContent = `Discover amazing hotel deals and luxury accommodations in ${formattedDestination}. Book with confidence and enjoy exclusive discounts.`;
-
-    // Load hotel data
-    console.log('Fetching hotel data from:', jsonUrl);
-    fetch(jsonUrl)
-      .then(response => {
-        console.log('Response status:', response.status);
-        if (!response.ok) throw new Error("Hotel data not found");
-        return response.json();
-      })
-      .then(hotels => {
-        console.log('Hotels loaded:', hotels.length);
-        allHotels = hotels;
-        displayHotels(hotels);
-      })
-      .catch(error => {
-        console.error("Hotel fetch error:", error);
-        const container = document.getElementById('hotel-container');
-        container.innerHTML = `<p>No hotel data available for this destination. Error: ${error.message}</p>`;
-      });
-
-    // Set a beautiful default hero image for all destinations
-    const heroSection = document.querySelector('.hero-section');
-    heroSection.style.backgroundImage = `url('https://images.unsplash.com/photo-1468413253725-0d5181091126?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`;
-
-    // Add sorting functionality
-    // Wait for DOM to be ready before adding event listener
+    // Wait for DOM to be ready before doing anything
     document.addEventListener('DOMContentLoaded', function() {
+      // Update meta tags dynamically
+      const seoTitle = `Best Hotel Deals in ${formattedDestination} | Luxury Hotels & Resorts | ExploraMondo`;
+      const seoDescription = `Find the best hotel deals in ${formattedDestination}. Compare prices, read reviews, and book luxury hotels with exclusive discounts. Best rates guaranteed.`;
+      const seoKeywords = `hotels in ${formattedDestination}, ${formattedDestination} hotel deals, luxury hotels ${formattedDestination}, best hotels ${formattedDestination}, hotel booking ${formattedDestination}`;
+      
+      document.title = seoTitle;
+      
+      // Update meta tags safely
+      const metaDescription = document.querySelector('meta[name="description"]');
+      const metaKeywords = document.querySelector('meta[name="keywords"]');
+      const metaOgTitle = document.querySelector('meta[property="og:title"]');
+      const metaOgDescription = document.querySelector('meta[property="og:description"]');
+      const metaOgUrl = document.querySelector('meta[property="og:url"]');
+      const metaTwitterTitle = document.querySelector('meta[name="twitter:title"]');
+      const metaTwitterDescription = document.querySelector('meta[name="twitter:description"]');
+      const canonicalLink = document.querySelector('link[rel="canonical"]');
+      
+      if (metaDescription) metaDescription.setAttribute('content', seoDescription);
+      if (metaKeywords) metaKeywords.setAttribute('content', seoKeywords);
+      if (metaOgTitle) metaOgTitle.setAttribute('content', seoTitle);
+      if (metaOgDescription) metaOgDescription.setAttribute('content', seoDescription);
+      if (metaOgUrl) metaOgUrl.setAttribute('content', window.location.href);
+      if (metaTwitterTitle) metaTwitterTitle.setAttribute('content', seoTitle);
+      if (metaTwitterDescription) metaTwitterDescription.setAttribute('content', seoDescription);
+      if (canonicalLink) canonicalLink.setAttribute('href', window.location.href);
+
+      // Update page content
+      const titleElement = document.getElementById('destination-title');
+      const descriptionElement = document.getElementById('destination-description');
+      
+      if (titleElement) titleElement.textContent = `Best Hotel Deals in ${formattedDestination}`;
+      if (descriptionElement) descriptionElement.textContent = `Discover amazing hotel deals and luxury accommodations in ${formattedDestination}. Book with confidence and enjoy exclusive discounts.`;
+
+      // Set a beautiful default hero image for all destinations
+      const heroSection = document.querySelector('.hero-section');
+      if (heroSection) {
+        heroSection.style.backgroundImage = `url('https://images.unsplash.com/photo-1468413253725-0d5181091126?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`;
+      }
+
+      // Add sorting functionality
       const sortSelect = document.getElementById('sortSelect');
       if (sortSelect) {
         sortSelect.addEventListener('change', function() {
@@ -175,6 +173,27 @@
           sortHotels(sortType);
         });
       }
+
+      // Load hotel data
+      console.log('Fetching hotel data from:', jsonUrl);
+      fetch(jsonUrl)
+        .then(response => {
+          console.log('Response status:', response.status);
+          if (!response.ok) throw new Error("Hotel data not found");
+          return response.json();
+        })
+        .then(hotels => {
+          console.log('Hotels loaded:', hotels.length);
+          allHotels = hotels;
+          displayHotels(hotels);
+        })
+        .catch(error => {
+          console.error("Hotel fetch error:", error);
+          const container = document.getElementById('hotel-container');
+          if (container) {
+            container.innerHTML = `<p>No hotel data available for this destination. Error: ${error.message}</p>`;
+          }
+        });
     });
 
     function sortHotels(sortType) {
