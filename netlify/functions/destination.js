@@ -16,7 +16,7 @@ exports.handler = async (event, context) => {
     }
 
     // Read the destination template
-    const templatePath = path.join(__dirname, '../../destination/index.html');
+    const templatePath = path.join(process.cwd(), 'destination/index.html');
     let htmlContent;
     try {
       htmlContent = fs.readFileSync(templatePath, 'utf8');
