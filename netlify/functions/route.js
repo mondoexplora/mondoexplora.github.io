@@ -17,7 +17,7 @@ exports.handler = async (event, context) => {
     }
 
     // Read the route template
-    const templatePath = path.join(__dirname, '../../route/index.html');
+    const templatePath = '/route/index.html';
     let htmlContent;
     try {
       htmlContent = fs.readFileSync(templatePath, 'utf8');
