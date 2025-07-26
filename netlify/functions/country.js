@@ -16,7 +16,7 @@ exports.handler = async (event, context) => {
     }
 
     // Load country data
-    const countryFilePath = path.join(__dirname, `../../data/countries/${countryName}.json`);
+    const countryFilePath = `/data/countries/${countryName}.json`;
     let countryData;
     
     try {
@@ -45,13 +45,24 @@ exports.handler = async (event, context) => {
     }
 
     // Load the country template
-    const templatePath = path.join(__dirname, '../../country/index.html');
+    // In Netlify Functions, files are deployed to the root
+    const templatePath = '/country/index.html';
+    
+    // Debug information
+    console.log('Current working directory:', process.cwd());
+    console.log('Template path:', templatePath);
+    try {
+      console.log('Root directory contents:', fs.readdirSync('/'));
+    } catch (e) {
+      console.log('Cannot read root directory:', e.message);
+    }
     
     let template;
     try {
       template = fs.readFileSync(templatePath, 'utf8');
     } catch (error) {
       console.error('Error loading template:', error);
+      console.error('Template path attempted:', templatePath);
       return {
         statusCode: 500,
         body: 'Template not found'
