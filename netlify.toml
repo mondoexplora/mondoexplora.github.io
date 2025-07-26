@@ -1,6 +1,22 @@
 [build]
   command = "pip install -r requirements.txt"
   publish = "."
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/destination/*"
+  to = "/.netlify/functions/destination"
+  status = 200
+
+[[redirects]]
+  from = "/route/*"
+  to = "/.netlify/functions/route"
+  status = 200
+
+[[redirects]]
+  from = "/country/*"
+  to = "/.netlify/functions/country"
+  status = 200
 
 [[redirects]]
   from = "/*"
