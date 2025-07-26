@@ -16,7 +16,7 @@ exports.handler = async (event, context) => {
     }
 
     // Load country data
-    const countryFilePath = path.join(__dirname, `../../data/countries/${countryName}.json`);
+    const countryFilePath = path.join(process.cwd(), `data/countries/${countryName}.json`);
     let countryData;
     
     try {
@@ -45,12 +45,17 @@ exports.handler = async (event, context) => {
     }
 
     // Load the country template
-    const templatePath = path.join(__dirname, '../../country/index.html');
+    const templatePath = path.join(process.cwd(), 'country/index.html');
+    console.log('Template path:', templatePath);
+    console.log('Current working directory:', process.cwd());
+    console.log('Directory contents:', fs.readdirSync(process.cwd()));
+    
     let template;
     try {
       template = fs.readFileSync(templatePath, 'utf8');
     } catch (error) {
       console.error('Error loading template:', error);
+      console.error('Template path attempted:', templatePath);
       return {
         statusCode: 500,
         body: 'Template not found'
