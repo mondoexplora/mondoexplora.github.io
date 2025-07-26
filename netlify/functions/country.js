@@ -19,9 +19,21 @@ exports.handler = async (event, context) => {
     const countryFilePath = path.join(__dirname, `../../data/countries/${countryName}.json`);
     let countryData;
     
-    if (fs.existsSync(countryFilePath)) {
-      countryData = JSON.parse(fs.readFileSync(countryFilePath, 'utf8'));
-    } else {
+    try {
+      if (fs.existsSync(countryFilePath)) {
+        countryData = JSON.parse(fs.readFileSync(countryFilePath, 'utf8'));
+      } else {
+        // Fallback to default data
+        countryData = {
+          "name": countryName.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase()),
+          "stats": {"routes": 10, "cities": 5, "providers": 20},
+          "popular_routes": [],
+          "major_cities": [],
+          "travel_tips": {}
+        };
+      }
+    } catch (error) {
+      console.error('Error loading country data:', error);
       // Fallback to default data
       countryData = {
         "name": countryName.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase()),
@@ -34,7 +46,16 @@ exports.handler = async (event, context) => {
 
     // Load the country template
     const templatePath = path.join(__dirname, '../../country/index.html');
-    let template = fs.readFileSync(templatePath, 'utf8');
+    let template;
+    try {
+      template = fs.readFileSync(templatePath, 'utf8');
+    } catch (error) {
+      console.error('Error loading template:', error);
+      return {
+        statusCode: 500,
+        body: 'Template not found'
+      };
+    }
 
     // Inject country data
     const scriptData = `

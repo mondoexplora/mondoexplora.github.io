@@ -17,7 +17,16 @@ exports.handler = async (event, context) => {
 
     // Read the destination template
     const templatePath = path.join(__dirname, '../../destination/index.html');
-    let htmlContent = fs.readFileSync(templatePath, 'utf8');
+    let htmlContent;
+    try {
+      htmlContent = fs.readFileSync(templatePath, 'utf8');
+    } catch (error) {
+      console.error('Error loading template:', error);
+      return {
+        statusCode: 500,
+        body: 'Template not found'
+      };
+    }
 
     // Create the JavaScript replacement (same as Flask version)
     const scriptReplacement = `
