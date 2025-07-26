@@ -1,0 +1,15 @@
+{
+  "name": "mondoexplora",
+  "version": "1.0.0",
+  "description": "MondoExplora Travel Website with Netlify Functions",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["travel", "hotels", "destinations", "netlify"],
+  "author": "MondoExplora",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 
