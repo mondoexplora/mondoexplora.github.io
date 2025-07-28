@@ -7,4 +7,5 @@ export interface Hotel {
   link: string;
   location_heading: string;
   location_subheading: string;
+  vendor_name?: string;
 } 
