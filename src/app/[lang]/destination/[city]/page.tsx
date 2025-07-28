@@ -48,8 +48,8 @@ export async function generateStaticParams() {
   const languages = ['en'];
   
   // Get all available cities from the generated JSON files
-  const fs = require('fs').promises;
-  const path = require('path');
+  const fs = await import('fs').then(m => m.promises);
+  const path = await import('path');
   
   try {
     const dataDir = path.join(process.cwd(), 'data', 'en', 'destination');

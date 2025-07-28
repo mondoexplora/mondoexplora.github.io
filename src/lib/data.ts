@@ -15,7 +15,7 @@ export async function getDestinationData(lang: string, city: string): Promise<De
   }
 }
 
-export async function getDestinationUrlData(destination: string): Promise<any | null> {
+export async function getDestinationUrlData(destination: string): Promise<Record<string, unknown> | null> {
   try {
     const destinationKey = destination.toLowerCase().replace(/\s+/g, '-');
     const filePath = path.join(DATA_DIR, 'le_destination_urls', `${destinationKey}.json`);
@@ -126,7 +126,7 @@ export async function getAllCountries(lang: SupportedLanguage): Promise<string[]
 }
 
 // New functions for home page
-export async function getPopularDestinations(lang: SupportedLanguage, limit: number = 6): Promise<any[]> {
+export async function getPopularDestinations(lang: SupportedLanguage, limit: number = 6): Promise<Record<string, unknown>[]> {
   try {
     const destinations = await getAllDestinations(lang);
     const popularDestinations = [];
@@ -153,7 +153,7 @@ export async function getPopularDestinations(lang: SupportedLanguage, limit: num
   }
 }
 
-export async function getPopularRoutes(lang: SupportedLanguage, limit: number = 6): Promise<any[]> {
+export async function getPopularRoutes(lang: SupportedLanguage, limit: number = 6): Promise<Record<string, unknown>[]> {
   try {
     const routes = await getAllRoutes(lang);
     return routes.slice(0, limit).map(route => ({
@@ -166,7 +166,7 @@ export async function getPopularRoutes(lang: SupportedLanguage, limit: number = 
   }
 }
 
-export async function getPopularCountries(lang: SupportedLanguage, limit: number = 6): Promise<any[]> {
+export async function getPopularCountries(lang: SupportedLanguage, limit: number = 6): Promise<Record<string, unknown>[]> {
   try {
     const countries = await getAllCountries(lang);
     const popularCountries = [];
@@ -192,7 +192,7 @@ export async function getPopularCountries(lang: SupportedLanguage, limit: number
   }
 }
 
-export async function getFeaturedDeals(lang: SupportedLanguage, limit: number = 6): Promise<any[]> {
+export async function getFeaturedDeals(lang: SupportedLanguage, limit: number = 6): Promise<Record<string, unknown>[]> {
   try {
     const destinations = await getAllDestinations(lang);
     const featuredDeals = [];

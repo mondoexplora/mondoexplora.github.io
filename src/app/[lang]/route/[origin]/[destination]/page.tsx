@@ -49,7 +49,7 @@ export default async function RoutePage({ params }: PageProps) {
           title={headline}
           subtitle={`Discover the best way to travel from ${displayOrigin} to ${displayDestination}. Compare travel modes and find exclusive hotel deals.`}
           backgroundImage={destinationData.hero_image}
-          cta={<RouteCTA origin={origin} destination={destination} lang={lang} affiliateLink={destinationUrlData?.affiliate_link} />}
+          cta={<RouteCTA origin={origin} destination={destination} lang={lang} affiliateLink={destinationUrlData?.affiliate_link as string | undefined} />}
         />
         
         <div className="main-content">
@@ -66,12 +66,12 @@ export default async function RoutePage({ params }: PageProps) {
             <h3>Explore More</h3>
             <div className="related-links-grid">
               {destinationUrlData && (
-                <Link
-                  href={`/${lang}/country/${destinationUrlData.country_name.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="related-link-card"
-                >
-                  <h4>{destinationUrlData.country_name} Travel Guide</h4>
-                  <p>Discover more destinations and travel information for {destinationUrlData.country_name}</p>
+                                          <Link
+                            href={`/${lang}/country/${(destinationUrlData.country_name as string).toLowerCase().replace(/\s+/g, '-')}`}
+                            className="related-link-card"
+                          >
+                            <h4>{destinationUrlData.country_name as string} Travel Guide</h4>
+                            <p>Discover more destinations and travel information for {destinationUrlData.country_name as string}</p>
                 </Link>
               )}
               
