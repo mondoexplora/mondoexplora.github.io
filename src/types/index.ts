@@ -26,7 +26,16 @@ export interface RouteData {
 export interface CountryData {
   name: string;
   hero_image: string;
-  popular_destinations?: string[];
+  description?: string;
+  popular_destinations?: Array<{
+    name: string;
+    slug: string;
+    image: string;
+    description: string;
+    hotel_count: number;
+    hotel_deals: number;
+    avg_price: number;
+  }>;
 }
 
 export interface DealData {

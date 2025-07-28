@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import { getCountryData, getDestinationData } from '@/lib/data';
 import Link from 'next/link';
 import DestinationImage from '@/components/DestinationImage';
+import { SupportedLanguage } from '@/types';
 
 interface PageProps {
   params: Promise<{
@@ -16,7 +17,7 @@ export default async function CountryPage({ params }: PageProps) {
   const { lang, country } = await params;
   
   try {
-    const countryData = await getCountryData(lang, country);
+    const countryData = await getCountryData(lang as SupportedLanguage, country);
     
     if (!countryData) {
       console.log(`Country data not found for: ${country}`);
@@ -27,14 +28,17 @@ export default async function CountryPage({ params }: PageProps) {
     const destinationsWithImages = await Promise.all(
       (countryData.popular_destinations || []).map(async (destination) => {
         try {
-          const destinationData = await getDestinationData(lang, destination.name.toLowerCase().replace(/\s+/g, '-'));
+          const destinationData = await getDestinationData(lang as SupportedLanguage, destination.slug);
           return {
             ...destination,
-            hero_image: destinationData?.hero_image || destinationData?.hotels?.[0]?.hero_image
+            hero_image: destinationData?.hero_image || destinationData?.hotels?.[0]?.hero_image || destination.image
           };
         } catch (error) {
           console.error(`Error loading destination data for ${destination.name}:`, error);
-          return destination;
+          return {
+            ...destination,
+            hero_image: destination.image
+          };
         }
       })
     );
