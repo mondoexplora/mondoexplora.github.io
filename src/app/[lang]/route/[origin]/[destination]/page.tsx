@@ -5,6 +5,7 @@ import RouteCTA from '@/components/RouteCTA';
 import HotelGrid from '@/components/HotelGrid';
 import Footer from '@/components/Footer';
 import { getDestinationData, getDestinationUrlData } from '@/lib/data';
+import { SupportedLanguage } from '@/types';
 
 interface PageProps {
   params: Promise<{
@@ -19,7 +20,7 @@ export default async function RoutePage({ params }: PageProps) {
   
   try {
     // Get destination data for hotels
-    const destinationData = await getDestinationData(lang, destination);
+    const destinationData = await getDestinationData(lang as SupportedLanguage, destination);
     
     // Get destination URL data for affiliate link and country name
     const destinationUrlData = await getDestinationUrlData(destination);

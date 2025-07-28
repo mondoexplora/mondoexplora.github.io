@@ -3,6 +3,7 @@ import Hero from '@/components/Hero';
 import HotelGrid from '@/components/HotelGrid';
 import Footer from '@/components/Footer';
 import { getDestinationData } from '@/lib/data';
+import { SupportedLanguage } from '@/types';
 
 interface PageProps {
   params: Promise<{
@@ -15,7 +16,7 @@ export default async function DestinationPage({ params }: PageProps) {
   const { lang, city } = await params;
   
   try {
-    const destinationData = await getDestinationData(lang, city);
+    const destinationData = await getDestinationData(lang as SupportedLanguage, city);
     
     if (!destinationData) {
       notFound();

@@ -13,6 +13,8 @@ export interface Hotel {
 export interface DestinationData {
   city: string;
   country: string;
+  hero_title: string;
+  description: string;
   hero_image: string;
   hotels?: Hotel[];
 }
