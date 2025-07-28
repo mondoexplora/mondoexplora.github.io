@@ -1,27 +1,8 @@
 [build]
-  command = "pip install -r requirements.txt"
-  publish = "."
-  functions = "netlify/functions"
-
-[[redirects]]
-  from = "/destination/*"
-  to = "/.netlify/functions/destination"
-  status = 200
-
-[[redirects]]
-  from = "/route/*"
-  to = "/.netlify/functions/route"
-  status = 200
-
-[[redirects]]
-  from = "/country/*"
-  to = "/.netlify/functions/country"
-  status = 200
+  command = "npm run build"
+  publish = "out"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200
-
-[build.environment]
-  PYTHON_VERSION = "3.9" 
+  status = 200 
