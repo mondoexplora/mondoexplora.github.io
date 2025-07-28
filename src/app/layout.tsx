@@ -15,6 +15,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "MondoExplora - Descubre el Mundo",
   description: "Encuentra las mejores ofertas en hoteles de lujo alrededor del mundo. Reserva con descuentos exclusivos en destinos de ensueño.",
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({

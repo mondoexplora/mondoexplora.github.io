@@ -2,9 +2,9 @@
 
 ## 📋 Información de Continuidad
 
-**Fecha de última actualización:** Julio 2025  
+**Fecha de última actualización:** Enero 2025  
 **Versión del proyecto:** MVP - Fase de Implementación  
-**Estado actual:** ✅ Proyecto Next.js creado exitosamente, listo para desarrollo
+**Estado actual:** ✅ Proyecto Next.js desplegado en Netlify, páginas dinámicas funcionando
 
 ---
 
@@ -81,6 +81,10 @@ mondoexplora-nextjs/
 - [x] Estructura de carpetas base
 - [x] Dependencias instaladas
 - [x] Documentación completa
+- [x] Páginas dinámicas implementadas (/[lang]/destination/[city], /[lang]/route/[origin]/[destination], /[lang]/country/[country])
+- [x] Netlify deployment configurado y funcionando
+- [x] Exportación estática configurada (output: export)
+- [x] Componentes reutilizables creados (Hero, HotelGrid, HotelCard, RouteCTA)
 
 ### ✅ **COMPLETADO:**
 - [x] Migrar CSS de hotel boxes
@@ -93,11 +97,17 @@ mondoexplora-nextjs/
 - [x] Crear página de destino de ejemplo (Bangkok)
 - [x] Actualizar página principal con diseño MondoExplora
 - [x] Configurar Next.js para imágenes externas
+- [x] Sistema de CTA dual implementado (nueva pestaña + redirección afiliado)
+- [x] Estructura de datos reorganizada (le_destination_urls)
+- [x] Páginas de país con popular destinations
+- [x] Páginas de ruta con hotel deals y CTA optimizado
 
 ### 🔄 **EN PROGRESO:**
 - [ ] Migrar datos JSON existentes desde pruebatravel
 - [ ] Implementar getStaticPaths para generación estática
 - [ ] Configurar i18n para internacionalización
+- [ ] **SEO/SEM OPTIMIZATION:** Implementar metadata dinámica basada en contenido real de cada página
+- [ ] **FAVICON INVESTIGATION:** Verificar origen del favicon negro con triángulo blanco
 
 ### ⏳ **PENDIENTE:**
 - [ ] Implementar getStaticPaths y getStaticProps
@@ -105,6 +115,10 @@ mondoexplora-nextjs/
 - [ ] Configurar i18n
 - [ ] Configurar Netlify deployment
 - [ ] Implementar Google Analytics 4
+- [ ] **MEJORAR METADATA SEO/SEM:** Optimizar dinámicamente title, description, keywords, Open Graph, Twitter Cards para cada página basado en contenido real
+- [ ] **FAVICON:** Verificar origen del favicon negro con triángulo blanco (¿es de alguna plataforma o inventado?)
+- [ ] **PÁGINAS TRAVEL_MODES:** Implementar páginas de comparación de transportes (actualmente son placeholders)
+- [ ] **INTERNACIONALIZACIÓN COMPLETA:** Implementar contenido en español, francés e italiano
 
 ---
 
@@ -234,6 +248,16 @@ module.exports = {
 - **Solución:** Adaptar formato existente a nueva estructura de carpetas
 - **Migración:** Script para convertir archivos existentes
 
+### Problema: Metadata SEO/SEM
+- **Estado:** Metadata básica implementada, necesita optimización dinámica
+- **Solución:** Implementar generateMetadata() dinámico basado en contenido real
+- **Impacto:** Mejorará rankings SEO y CTR en SEM
+
+### Problema: Favicon
+- **Estado:** Favicon negro con triángulo blanco presente
+- **Pregunta:** ¿Es de alguna plataforma específica o fue inventado?
+- **Acción:** Investigar origen y considerar reemplazo si es necesario
+
 ---
 
 ## 📞 Información de Contacto
@@ -272,10 +296,11 @@ module.exports = {
    ```
 
 4. **Próximos pasos inmediatos:**
-   - [ ] Migrar CSS de hotel boxes
-   - [ ] Crear componente HotelCard
-   - [ ] Migrar datos JSON
-   - [ ] Configurar páginas dinámicas
+   - [ ] **OPTIMIZAR SEO/SEM:** Implementar metadata dinámica para todas las páginas
+   - [ ] **INVESTIGAR FAVICON:** Verificar origen del favicon actual
+   - [ ] Migrar datos JSON restantes
+   - [ ] Implementar páginas travel_modes completas
+   - [ ] Configurar i18n completo
 
 ### Comandos útiles:
 ```bash
