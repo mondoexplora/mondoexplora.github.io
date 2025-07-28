@@ -210,7 +210,7 @@ export async function getFeaturedDeals(lang: SupportedLanguage, limit: number = 
           location_subheading: hotel.location_subheading || destinationData.country,
           description: hotel.description,
           price: hotel.price,
-          value: hotel.value,
+          original_price: hotel.original_price,
           link: hotel.link
         });
       }
