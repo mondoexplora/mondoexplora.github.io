@@ -75,32 +75,33 @@ export default async function TravelModesPage({ params }: PageProps) {
 export async function generateStaticParams() {
   const languages = ['en'];
   
-  // Popular routes based on destinations from CSV
-  const popularRoutes = [
-    { origin: 'madrid', destination: 'barcelona' },
-    { origin: 'london', destination: 'paris' },
-    { origin: 'new-york', destination: 'los-angeles' },
-    { origin: 'sydney', destination: 'melbourne' },
-    { origin: 'bangkok', destination: 'chiang-mai' },
-    { origin: 'tokyo', destination: 'osaka' },
-    { origin: 'rome', destination: 'milan' },
-    { origin: 'berlin', destination: 'munich' },
-    { origin: 'madrid', destination: 'bali' },
-    { origin: 'london', destination: 'bangkok' },
-    { origin: 'new-york', destination: 'tokyo' },
-    { origin: 'sydney', destination: 'singapore' }
-  ];
+  // Read routes from config file (same as route pages)
+  const fs = await import('fs').then(m => m.promises);
+  const path = await import('path');
   
-  const params = [];
-  for (const lang of languages) {
-    for (const route of popularRoutes) {
-      params.push({
-        lang,
-        origin: route.origin,
-        destination: route.destination
-      });
+  try {
+    const configPath = path.join(process.cwd(), 'config', 'routes.json');
+    const configData = await fs.readFile(configPath, 'utf8');
+    const config = JSON.parse(configData);
+    
+    const params = [];
+    for (const lang of languages) {
+      for (const route of config.routes) {
+        params.push({
+          lang,
+          origin: route.origin,
+          destination: route.destination
+        });
+      }
     }
+    
+    return params;
+  } catch (error) {
+    console.error('Error reading routes config:', error);
+    // Fallback to default routes
+    return [
+      { lang: 'en', origin: 'new-york', destination: 'bangkok' },
+      { lang: 'en', origin: 'london', destination: 'paris' }
+    ];
   }
-  
-  return params;
 } 

@@ -5,6 +5,7 @@ import RouteCTA from '@/components/RouteCTA';
 import HotelGrid from '@/components/HotelGrid';
 import Footer from '@/components/Footer';
 import { getDestinationData, getDestinationUrlData } from '@/lib/data';
+import { SupportedLanguage } from '@/types';
 
 interface PageProps {
   params: Promise<{
@@ -19,7 +20,7 @@ export default async function RoutePage({ params }: PageProps) {
   
   try {
     // Get destination data for hotels
-    const destinationData = await getDestinationData(lang, destination);
+    const destinationData = await getDestinationData(lang as SupportedLanguage, destination);
     
     // Get destination URL data for affiliate link and country name
     const destinationUrlData = await getDestinationUrlData(destination);
@@ -107,28 +108,33 @@ export default async function RoutePage({ params }: PageProps) {
 export async function generateStaticParams() {
   const languages = ['en'];
   
-  // Define some popular routes
-  const routes = [
-    { origin: 'madrid', destination: 'barcelona' },
-    { origin: 'london', destination: 'paris' },
-    { origin: 'new-york', destination: 'los-angeles' },
-    { origin: 'tokyo', destination: 'osaka' },
-    { origin: 'sydney', destination: 'melbourne' },
-    { origin: 'rome', destination: 'milan' },
-    { origin: 'berlin', destination: 'munich' },
-    { origin: 'bangkok', destination: 'chiang-mai' }
-  ];
+  // Read routes from config file
+  const fs = await import('fs').then(m => m.promises);
+  const path = await import('path');
   
-  const params = [];
-  for (const lang of languages) {
-    for (const route of routes) {
-      params.push({
-        lang,
-        origin: route.origin,
-        destination: route.destination
-      });
+  try {
+    const configPath = path.join(process.cwd(), 'config', 'routes.json');
+    const configData = await fs.readFile(configPath, 'utf8');
+    const config = JSON.parse(configData);
+    
+    const params = [];
+    for (const lang of languages) {
+      for (const route of config.routes) {
+        params.push({
+          lang,
+          origin: route.origin,
+          destination: route.destination
+        });
+      }
     }
+    
+    return params;
+  } catch (error) {
+    console.error('Error reading routes config:', error);
+    // Fallback to default routes
+    return [
+      { lang: 'en', origin: 'new-york', destination: 'bangkok' },
+      { lang: 'en', origin: 'london', destination: 'paris' }
+    ];
   }
-  
-  return params;
 } 

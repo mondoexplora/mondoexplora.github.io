@@ -1,7 +1,6 @@
 'use client';
 
 import { Hotel } from '@/types';
-import Image from 'next/image';
 import { useState } from 'react';
 
 interface HotelCardProps {
@@ -48,14 +47,11 @@ export default function HotelCard({ hotel, onViewDeal, lang = 'en' }: HotelCardP
   return (
     <div className="hotel-card" onClick={handleCardClick} style={{ cursor: 'pointer' }}>
       <div className="hotel-image-container">
-        <Image
+        <img
           src={imageError ? '/images/placeholder-hotel.jpg' : hotel.hero_image}
           alt={hotel.title}
-          width={400}
-          height={200}
           className="hotel-image"
           onError={() => setImageError(true)}
-          priority={false}
         />
         
         <div className="hotel-price">

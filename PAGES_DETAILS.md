@@ -1,369 +1,313 @@
-# MondoExplora - Páginas Detalladas
+# PÁGINAS DETALLES - MONDOEXPLORA
 
-## 📋 Índice
-- [Página Principal (Home)](#página-principal-home)
-- [Páginas de Ruta](#páginas-de-ruta)
-- [Páginas de Destino](#páginas-de-destino)
-- [Páginas de País](#páginas-de-país)
-- [Páginas de Modos de Viaje](#páginas-de-modos-de-viaje)
-- [Layouts y Componentes](#layouts-y-componentes)
-- [Estructura de Datos](#estructura-de-datos)
-- [Problemas Comunes](#problemas-comunes)
+## 📋 **Resumen**
+Documentación técnica detallada de todas las páginas del proyecto MondoExplora Next.js.
 
----
+## 🏠 **PÁGINA HOME** (`/[lang]/page.tsx`)
 
-## 🏠 Página Principal (Home)
+### **URL Structure**
+- **Patrón**: `/[lang]/` (ej: `/en/`, `/es/`, `/fr/`, `/it/`)
+- **Ejemplo**: `https://mondoexplora.com/en/`
 
-### Archivo: `src/app/page.tsx`
-- **Ruta:** `/`
-- **Funcionalidad:** Redirecciona a `/en`
-- **Tipo:** Server Component
-- **Datos:** No carga datos específicos
+### **Funcionalidad**
+- **H1**: "Discover Amazing Destinations"
+- **Contenido**: Destinos populares, rutas, países y ofertas destacadas
+- **Data Source**: `getPopularDestinations()`, `getPopularRoutes()`, `getPopularCountries()`, `getFeaturedDeals()`
 
-### Archivo: `src/app/[lang]/page.tsx`
-- **Ruta:** `/en`, `/es`, `/fr`, `/it`
-- **Funcionalidad:** Redirecciona a `/`
-- **Tipo:** Server Component
-- **generateStaticParams:** Genera rutas para todos los idiomas
+### **Componentes**
+- `Hero` - Sección principal con título y CTA
+- `HotelGrid` - Grid de ofertas destacadas
+- `Footer` - Pie de página con navegación
 
----
-
-## 🛣️ Páginas de Ruta
-
-### Archivo: `src/app/[lang]/route/[origin]/[destination]/page.tsx`
-
-#### **URL Structure:**
-```
-/en/route/new-york/bangkok
-/es/route/madrid/paris
-```
-
-#### **Generación de H1:**
+### **generateStaticParams**
 ```typescript
-const formatCityName = (cityName: string) => {
-  return cityName
-    .replace(/-/g, ' ')
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ');
-};
-
-const displayOrigin = formatCityName(origin);      // "New York"
-const displayDestination = formatCityName(destination); // "Bangkok"
-const headline = `${displayOrigin} to ${displayDestination}`; // "New York to Bangkok"
-```
-
-#### **Datos Cargados:**
-1. **Destination Data:** `getDestinationData(lang, destination)`
-   - **Archivo:** `data/{lang}/destination/{destination}.json`
-   - **Contiene:** Hoteles, hero_image, descripción
-   
-2. **URL Data:** `getDestinationUrlData(destination)`
-   - **Archivo:** `data/le_destination_urls/{destination}.json`
-   - **Contiene:** affiliate_link, country_name
-
-#### **CTA (Call to Action):**
-- **Componente:** `RouteCTA` (Client Component)
-- **Acción 1:** Abre nueva pestaña → `/{lang}/travel_modes/{origin}/{destination}`
-- **Acción 2:** Redirige pestaña actual → `affiliateLink` del archivo URL data
-
-#### **Hoteles:**
-- **Fuente:** `destinationData.hotels.slice(0, 6)`
-- **Cantidad:** 6 hoteles
-- **Componente:** `HotelGrid` con `lang={lang}`
-
-#### **Enlaces Relacionados:**
-1. **País:** `/{lang}/country/{country_name}`
-2. **Destino:** `/{lang}/destination/{destination}`
-3. **Modos de Viaje:** `/{lang}/travel_modes/{origin}/{destination}`
-
-#### **generateStaticParams:**
-```typescript
-// Lee todos los archivos de le_destination_urls
-// Genera combinaciones para todos los idiomas soportados
-```
-
----
-
-## 🏙️ Páginas de Destino
-
-### Archivo: `src/app/[lang]/destination/[city]/page.tsx`
-
-#### **URL Structure:**
-```
-/en/destination/bangkok
-/es/destination/madrid
-```
-
-#### **Datos Cargados:**
-- **Archivo:** `data/{lang}/destination/{city}.json`
-- **Contiene:** Hoteles, hero_title, description, hero_image, city, country
-
-#### **H1:**
-- **Fuente:** `destinationData.hero_title`
-
-#### **Hoteles:**
-- **Fuente:** `destinationData.hotels` (todos)
-- **Componente:** `HotelGrid` con `lang={lang}`
-
-#### **Location Display:**
-- **Formato:** `${destinationData.city}, ${destinationData.country}`
-
-#### **generateStaticParams:**
-```typescript
-// Lee todos los archivos de data/{lang}/destination/
-// Genera combinaciones para todos los idiomas soportados
-```
-
----
-
-## 🌍 Páginas de País
-
-### Archivo: `src/app/[lang]/country/[country]/page.tsx`
-
-#### **URL Structure:**
-```
-/en/country/thailand
-/es/country/spain
-```
-
-#### **Casos Especiales:**
-- **Tanzania:** `tanzania,-united-republic-of`
-- **Taiwan:** `taiwan-(province-of-china)`
-
-#### **Datos Cargados:**
-- **Archivo:** `data/{lang}/country/{country}.json`
-- **Contiene:** name, hero_title, description, hero_image, popular_destinations
-
-#### **H1:**
-- **Fuente:** `countryData.hero_title`
-
-#### **Location Display:**
-- **Formato:** `countryData.name`
-
-#### **Destinos Populares:**
-- **Fuente:** `countryData.popular_destinations`
-- **Display:** Grid con nombre, descripción, hotel_deals, avg_price
-
-#### **generateStaticParams:**
-```typescript
-// Lee todos los archivos de data/{lang}/country/
-// Genera combinaciones para todos los idiomas soportados
-```
-
----
-
-## 🚗 Páginas de Modos de Viaje
-
-### Archivo: `src/app/[lang]/travel_modes/[origin]/[destination]/page.tsx`
-
-#### **URL Structure:**
-```
-/en/travel_modes/new-york/bangkok
-```
-
-#### **Funcionalidad:**
-- **Estado:** Placeholder/Coming Soon
-- **H1:** "Transport Options: {Origin} to {Destination}"
-- **Contenido:** Grid con 4 modos de transporte (✈️ Flights, 🚄 Trains, 🚌 Buses, 🚗 Car Rental)
-
-#### **generateStaticParams:**
-```typescript
-// Usa las mismas combinaciones que las páginas de ruta
-```
-
----
-
-## 🧩 Layouts y Componentes
-
-### Layout Principal: `src/app/layout.tsx`
-- **Metadata:** Título, descripción, favicon
-- **Favicon:** `/favicon.svg`
-
-### Layout de Idioma: `src/app/[lang]/layout.tsx`
-- **Tipo:** Server Component (async)
-- **Función:** Wrapper para páginas internacionalizadas
-- **Params:** `Promise<{ lang: string }>`
-
-### Componente Hero: `src/components/Hero.tsx`
-- **Props:** title, subtitle, backgroundImage, location?, cta?
-- **Logo:** "MondoExplora" en esquina superior derecha
-- **Estilos:** CSS personalizado en `hotel-boxes.css`
-
-### Componente RouteCTA: `src/components/RouteCTA.tsx`
-- **Tipo:** Client Component ('use client')
-- **Props:** lang, origin, destination, affiliateLink?
-- **Funcionalidad:** Dual action (nueva pestaña + redirección)
-
-### Componente HotelGrid: `src/components/HotelGrid.tsx`
-- **Props:** hotels, hotelsPerPage=6, lang
-- **Paginación:** Componente Pagination
-- **Hoteles por página:** 6 (configurable)
-
-### Componente HotelCard: `src/components/HotelCard.tsx`
-- **Props:** hotel, onViewDeal, lang
-- **CTA Text:** Localizado según idioma
-- **Sin descuento:** No muestra porcentaje de descuento
-
----
-
-## 📊 Estructura de Datos
-
-### Archivos de Destino: `data/{lang}/destination/{city}.json`
-```json
-{
-  "hero_title": "string",
-  "description": "string", 
-  "hero_image": "url",
-  "city": "string",
-  "country": "string",
-  "hotels": [Hotel[]]
+export async function generateStaticParams() {
+  return [
+    { lang: 'en' },
+    { lang: 'es' },
+    { lang: 'fr' },
+    { lang: 'it' }
+  ];
 }
 ```
 
-### Archivos de País: `data/{lang}/country/{country}.json`
-```json
-{
-  "name": "string",
-  "hero_title": "string",
-  "description": "string",
-  "hero_image": "url",
-  "popular_destinations": [Destination[]]
-}
-```
+---
 
-### Archivos de URL: `data/le_destination_urls/{destination}.json`
-```json
-{
-  "destination": "string",
-  "affiliate_link": "url",
-  "country_name": "string"
-}
-```
+## 🏙️ **PÁGINA DESTINATION** (`/[lang]/destination/[city]/page.tsx`)
 
-### Tipo Hotel:
+### **URL Structure**
+- **Patrón**: `/[lang]/destination/[city]`
+- **Ejemplo**: `https://mondoexplora.com/en/destination/bangkok`
+
+### **Funcionalidad**
+- **H1**: Generado desde `destinationData.hero_title`
+- **Hoteles**: Muestra hasta 6 hoteles del destino
+- **Data Source**: `getDestinationData(lang, city)`
+
+### **Data Structure**
 ```typescript
-interface Hotel {
-  title: string;
+interface DestinationData {
+  city: string;
+  country: string;
+  hero_title: string;
   description: string;
   hero_image: string;
-  price: number;
-  original_price?: number;
-  link: string;
-  vendor_name: string;
-  location_heading: string;
-  location_subheading: string;
+  hotels?: Hotel[];
+}
+```
+
+### **Componentes**
+- `Hero` - Con título, descripción e imagen de fondo
+- `HotelGrid` - Grid de hoteles con paginación
+- `Footer` - Pie de página
+
+### **generateStaticParams**
+Lee todos los archivos JSON de `data/[lang]/destination/` y genera parámetros para cada ciudad.
+
+---
+
+## 🛣️ **PÁGINA ROUTE** (`/[lang]/route/[origin]/[destination]/page.tsx`)
+
+### **URL Structure**
+- **Patrón**: `/[lang]/route/[origin]/[destination]`
+- **Ejemplo**: `https://mondoexplora.com/en/route/new-york/bangkok`
+
+### **Funcionalidad**
+- **H1**: Generado dinámicamente (ej: "New York to Bangkok")
+- **CTA Dual**: Abre `/travel_modes/` en nueva tab + redirección a affiliate link
+- **Hoteles**: Muestra 6 hoteles del destino
+- **Data Sources**: 
+  - `getDestinationData(lang, destination)` - Para hoteles
+  - `getDestinationUrlData(destination)` - Para affiliate link
+
+### **CTA System**
+```typescript
+// RouteCTA Component
+- Nuevo tab: /[lang]/travel_modes/[origin]/[destination]
+- Redirección actual: affiliate_link del destino
+```
+
+### **Componentes**
+- `Hero` - Con título dinámico y CTA dual
+- `RouteCTA` - Botón con lógica dual (Client Component)
+- `HotelGrid` - 6 hoteles del destino
+- `Related Links` - Enlaces a país y travel modes
+
+### **generateStaticParams**
+Lee rutas desde `config/routes.json`:
+```json
+{
+  "routes": [
+    { "origin": "new-york", "destination": "bangkok" },
+    { "origin": "london", "destination": "paris" }
+  ]
 }
 ```
 
 ---
 
-## 🔧 Problemas Comunes
+## 🌍 **PÁGINA COUNTRY** (`/[lang]/country/[country]/page.tsx`)
 
-### Error: "params should be awaited"
-**Causa:** Next.js 15 requiere await en params
-**Solución:** 
+### **URL Structure**
+- **Patrón**: `/[lang]/country/[country]`
+- **Ejemplo**: `https://mondoexplora.com/en/country/thailand`
+
+### **Funcionalidad**
+- **H1**: "Discover [Country]"
+- **Destinos**: Grid de destinos populares del país
+- **Data Source**: `getCountryData(lang, country)`
+
+### **Data Structure**
 ```typescript
-const { lang, origin, destination } = await params;
+interface CountryData {
+  name: string;
+  hero_image: string;
+  description?: string;
+  popular_destinations?: Array<{
+    name: string;
+    slug: string;
+    image: string;
+    description: string;
+    hotel_count: number;
+    hotel_deals: number;
+    avg_price: number;
+  }>;
+}
 ```
 
-### Error: "use client" + generateStaticParams
-**Causa:** No se pueden usar juntos
-**Solución:** Mover lógica cliente a componente separado
+### **Componentes**
+- `Hero` - Con título "Discover [Country]"
+- `Destination Cards` - Grid de destinos populares
+- `Footer` - Pie de página
 
-### Error: "Cannot read properties of undefined"
-**Causa:** Datos no cargados correctamente
-**Solución:** Verificar rutas de archivos y manejo de errores
+### **Destination Cards**
+- **Imagen**: Desde `destination.hero_image` o `destination.image`
+- **Precio**: Badge en esquina superior derecha (fondo blanco, texto verde)
+- **Link**: `/[lang]/destination/[slug]`
 
-### Error: "Type 'unknown' is not assignable"
-**Causa:** Tipos no definidos correctamente
-**Solución:** Type casting: `as string | undefined`
+### **generateStaticParams**
+Lee todos los archivos JSON de `data/[lang]/country/` y genera parámetros para cada país.
 
-### Error: "Middleware cannot be used with output: export"
-**Causa:** Conflicto con exportación estática
-**Solución:** Remover middleware o cambiar configuración
+---
 
-### Error: "Page is missing generateStaticParams()"
-**Causa:** Páginas dinámicas sin generateStaticParams
-**Solución:** Agregar función generateStaticParams
+## 🚗 **PÁGINA TRAVEL_MODES** (`/[lang]/travel_modes/[origin]/[destination]/page.tsx`)
 
-### Error: "A require() style import is forbidden"
-**Causa:** require() en ES modules
-**Solución:** Usar import dinámico:
+### **URL Structure**
+- **Patrón**: `/[lang]/travel_modes/[origin]/[destination]`
+- **Ejemplo**: `https://mondoexplora.com/en/travel_modes/new-york/bangkok`
+
+### **Funcionalidad**
+- **Estado**: Placeholder (pendiente de implementación)
+- **Propósito**: Comparación de modos de transporte
+- **Data Source**: `getRouteData(lang, origin, destination)`
+
+### **generateStaticParams**
+Mismo sistema que route pages - lee desde `config/routes.json`.
+
+---
+
+## 🔧 **CONFIGURACIÓN TÉCNICA**
+
+### **TypeScript Interfaces**
 ```typescript
-const fs = await import('fs').then(m => m.promises);
+// src/types/index.ts
+export interface Hotel {
+  title: string;
+  description: string;
+  price: number;
+  original_price?: number;
+  hero_image: string;
+  link: string;
+  location_heading: string;
+  location_subheading: string;
+  vendor_name?: string;
+}
+
+export interface DestinationData {
+  city: string;
+  country: string;
+  hero_title: string;
+  description: string;
+  hero_image: string;
+  hotels?: Hotel[];
+}
+
+export interface CountryData {
+  name: string;
+  hero_image: string;
+  description?: string;
+  popular_destinations?: Array<{...}>;
+}
+
+export type SupportedLanguage = 'en' | 'es' | 'fr' | 'it';
+```
+
+### **Data Loading Functions**
+```typescript
+// src/lib/data.ts
+- getDestinationData(lang: SupportedLanguage, city: string)
+- getCountryData(lang: SupportedLanguage, country: string)
+- getDestinationUrlData(destination: string)
+- getRouteData(lang: SupportedLanguage, origin: string, destination: string)
+```
+
+### **CSS Classes Principales**
+```css
+- .main-content - Contenedor principal
+- .hotel-section-header - Título de sección de hoteles
+- .destination-grid - Grid de destinos
+- .destination-card - Tarjeta de destino
+- .destination-price-badge - Badge de precio
+- .hero-section - Sección hero
+- .related-links - Enlaces relacionados
 ```
 
 ---
 
-## 🎨 Estilos CSS
+## ⚠️ **ERRORES COMUNES Y SOLUCIONES**
 
-### Archivo Principal: `src/app/globals.css`
-- **Tailwind CSS**
-- **Import:** `@import '../styles/hotel-boxes.css';`
+### **TypeScript Errors**
+1. **"Property does not exist on type"**
+   - **Solución**: Verificar interface en `src/types/index.ts`
+   - **Ejemplo**: `hotel.value` → `hotel.original_price`
 
-### Archivo de Estilos: `src/styles/hotel-boxes.css`
-- **Hotel boxes styling**
-- **Hero section styling**
-- **Footer styling**
-- **Pagination styling**
-- **Related links styling**
-- **Route CTA button styling**
+2. **"Argument of type 'string' is not assignable to parameter of type 'SupportedLanguage'"**
+   - **Solución**: Cast `lang as SupportedLanguage`
+   - **Ejemplo**: `getDestinationData(lang as SupportedLanguage, city)`
 
-### Clases Principales:
-- `.hero-section`: Hero container
-- `.hotel-card`: Individual hotel card
-- `.hotel-grid`: Hotel grid container
-- `.route-cta-button`: CTA button styling
-- `.main-content`: Main content wrapper
-- `.hotel-section-header`: Hotel section header
+3. **"Module has no exported member"**
+   - **Solución**: Verificar imports y exports en `src/types/index.ts`
+
+### **Build Errors**
+1. **"Page is missing generateStaticParams()"**
+   - **Solución**: Agregar función `generateStaticParams()` al archivo
+   - **Causa**: Next.js `output: 'export'` requiere parámetros estáticos
+
+2. **"Cannot find module '@/components/'"**
+   - **Solución**: Verificar `tsconfig.json` paths y existencia de archivos
+
+### **Runtime Errors**
+1. **"Event handlers cannot be passed to Client Component props"**
+   - **Solución**: Mover lógica a Client Component separado
+   - **Ejemplo**: `DestinationImage` component para `onError`
 
 ---
 
-## 🚀 Deployment
+## 🚀 **DEPLOYMENT**
 
-### Netlify Configuration: `netlify.toml`
+### **Netlify Configuration**
 ```toml
+# netlify.toml
 [build]
   command = "npm run build"
   publish = "out"
 
-[build.environment]
-  NODE_VERSION = "18"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 ```
 
-### Next.js Configuration: `next.config.ts`
-```typescript
-{
-  output: 'export',
-  distDir: 'out',
-  images: {
-    unoptimized: true,
-    remotePatterns: [...]
-  }
-}
-```
+### **Build Process**
+1. `npm run build` - Genera páginas estáticas en `/out`
+2. Netlify publica desde `/out`
+3. Redirects manejan rutas dinámicas
+
+### **Branch Strategy**
+- **`spa-experiment`**: Desarrollo activo
+- **`main`**: Producción estable
+- **Deploy automático** desde `spa-experiment`
 
 ---
 
-## 📝 Notas de Mantenimiento
+## 📊 **ESTADÍSTICAS**
 
-### Para Agregar Nuevos Destinos:
-1. Crear archivo en `data/{lang}/destination/{city}.json`
-2. Crear archivo en `data/le_destination_urls/{city}.json`
-3. Verificar que generateStaticParams incluya el nuevo destino
+### **Páginas Generadas**
+- **Destinations**: ~1000+ (por idioma × ciudades)
+- **Countries**: ~200+ (por idioma × países)
+- **Routes**: Configurable via `config/routes.json`
+- **Home**: 4 páginas (uno por idioma)
 
-### Para Cambiar Estilos:
-1. Modificar `src/styles/hotel-boxes.css`
-2. Verificar responsive design
-3. Probar en diferentes páginas
-
-### Para Debugging:
-1. Verificar rutas de archivos JSON
-2. Revisar console.log en terminal
-3. Verificar tipos TypeScript
-4. Limpiar caché: `rm -rf .next`
+### **Performance**
+- **Build Time**: ~15-20 segundos
+- **Bundle Size**: Optimizado para producción
+- **Lighthouse Score**: 90+ (estimado)
 
 ---
 
-*Última actualización: Enero 2025* 
+## 🔄 **MANTENIMIENTO**
+
+### **Agregar Nuevas Rutas**
+1. Editar `config/routes.json`
+2. Agregar `{ "origin": "city1", "destination": "city2" }`
+3. Commit y push a `spa-experiment`
+
+### **Agregar Nuevos Destinos**
+1. Crear archivo `data/[lang]/destination/[city].json`
+2. Seguir estructura de `DestinationData`
+3. Deploy automático desde GitHub
+
+### **Actualizar Tipos**
+1. Editar `src/types/index.ts`
+2. Verificar todos los usos en el código
+3. Testear build local: `npm run build` 
