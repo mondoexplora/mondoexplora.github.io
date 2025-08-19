@@ -6,9 +6,9 @@ import './blog.css'
 import BlogPostsDisplay from './components/BlogPostsDisplay'
 
 interface BlogPageProps {
-  params: {
+  params: Promise<{
     lang: SupportedLanguage
-  }
+  }>
 }
 
 export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
