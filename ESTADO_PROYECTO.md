@@ -26,17 +26,22 @@ Proyecto Next.js para MondoExplora.com - Plataforma de viajes con páginas diná
 
 ### ✅ **Completado Recientemente**
 1. **FIXES DE TYPESCRIPT COMPLETOS** - Todos los errores de tipos resueltos
-2. **INTERFACES ACTUALIZADAS** - DestinationData, CountryData, RouteData, DealData, SupportedLanguage
+2. **INTERFACES ACTUALIZADAS** - DestinationData, CountryData, RouteData, DealData, SupportedLanguage, Hotel (con min_duration)
 3. **TYPE CASTING** - Todos los parámetros `lang` correctamente tipados
 4. **PROPIEDADES FALTANTES** - hero_title, description agregados a DestinationData
 5. **ERRORES DE DATA** - hotel.value → hotel.original_price corregido
 6. **DEPLOY NETLIFY** - Configuración correcta con build y publish paths
 7. **PÁGINAS DINÁMICAS** - Todas funcionando: /destination/, /route/, /country/
 8. **ESTRUCTURA DE DATOS** - Reorganizada en carpetas por idioma/destino
-9. **COMPONENTES** - Hero, HotelGrid, HotelCard, RouteCTA, DestinationImage
+9. **COMPONENTES** - Hero, HotelGrid, HotelCard, RouteCTA, DestinationImage, Pagination
 10. **SISTEMA CTA DUAL** - Nuevo tab + redirección actual
-11. **ESTILOS CSS** - Hotel boxes, Hero, Footer, paginación
+11. **ESTILOS CSS** - Hotel boxes, Hero, Footer, paginación, destination tiles
 12. **CONFIGURACIÓN RUTAS** - Centralizada en config/routes.json
+13. **HOMEPAGE REFINEMENTS** - Diseño limpio con tiles de destinos y países
+14. **FOOTER IMPROVEMENTS** - Navegación con enlaces a países, destinos y rutas populares
+15. **PAGINATION FIXES** - Soporte multiidioma y diseño minimalista
+16. **HOTEL MINIMUM DURATION** - Display de duración mínima en todas las tarjetas de hoteles
+17. **HERO LOCATION REMOVAL** - Eliminación de ubicación en hero de páginas de destino
 
 ### ✅ **SISTEMA DE BLOG COMPLETO** (Enero 2025)
 13. **MIGRACIÓN FLASK A NEXT.JS** - Blog completamente migrado de Flask a Next.js

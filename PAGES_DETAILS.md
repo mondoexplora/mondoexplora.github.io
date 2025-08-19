@@ -11,13 +11,15 @@ Documentación técnica detallada de todas las páginas del proyecto MondoExplor
 
 ### **Funcionalidad**
 - **H1**: "Discover Amazing Destinations"
-- **Contenido**: Destinos populares, rutas, países y ofertas destacadas
-- **Data Source**: `getPopularDestinations()`, `getPopularRoutes()`, `getPopularCountries()`, `getFeaturedDeals()`
+- **Contenido**: Destinos populares y países (diseño limpio con tiles)
+- **Data Source**: `getAllDestinations()`, `getAllCountries()` (ordenados por cantidad de hoteles/destinos)
+- **Diseño**: Tiles compactos 3x3, sin títulos de sección, sin CTA final
 
 ### **Componentes**
-- `Hero` - Sección principal con título y CTA
-- `HotelGrid` - Grid de ofertas destacadas
-- `Footer` - Pie de página con navegación
+- `Hero` - Sección principal con título (sin CTA)
+- `Destination Tiles` - Grid de destinos populares (3x3)
+- `Country Tiles` - Grid de países populares (3x3)
+- `Footer` - Pie de página con navegación a países, destinos y rutas
 
 ### **generateStaticParams**
 ```typescript
@@ -41,8 +43,9 @@ export async function generateStaticParams() {
 
 ### **Funcionalidad**
 - **H1**: Generado desde `destinationData.hero_title`
-- **Hoteles**: Muestra hasta 6 hoteles del destino
+- **Hoteles**: Muestra hasta 6 hoteles del destino con duración mínima
 - **Data Source**: `getDestinationData(lang, city)`
+- **Hero**: Sin ubicación (red pin eliminado)
 
 ### **Data Structure**
 ```typescript
@@ -57,8 +60,8 @@ interface DestinationData {
 ```
 
 ### **Componentes**
-- `Hero` - Con título, descripción e imagen de fondo
-- `HotelGrid` - Grid de hoteles con paginación
+- `Hero` - Con título, descripción e imagen de fondo (sin ubicación)
+- `HotelGrid` - Grid de hoteles con paginación y duración mínima
 - `Footer` - Pie de página
 
 ### **generateStaticParams**
@@ -75,7 +78,7 @@ Lee todos los archivos JSON de `data/[lang]/destination/` y genera parámetros p
 ### **Funcionalidad**
 - **H1**: Generado dinámicamente (ej: "New York to Bangkok")
 - **CTA Dual**: Abre `/travel_modes/` en nueva tab + redirección a affiliate link
-- **Hoteles**: Muestra 6 hoteles del destino
+- **Hoteles**: Muestra 6 hoteles del destino con duración mínima
 - **Data Sources**: 
   - `getDestinationData(lang, destination)` - Para hoteles
   - `getDestinationUrlData(destination)` - Para affiliate link
@@ -90,7 +93,7 @@ Lee todos los archivos JSON de `data/[lang]/destination/` y genera parámetros p
 ### **Componentes**
 - `Hero` - Con título dinámico y CTA dual
 - `RouteCTA` - Botón con lógica dual (Client Component)
-- `HotelGrid` - 6 hoteles del destino
+- `HotelGrid` - 6 hoteles del destino con duración mínima
 - `Related Links` - Enlaces a país y travel modes
 
 ### **generateStaticParams**
@@ -166,6 +169,37 @@ Mismo sistema que route pages - lee desde `config/routes.json`.
 
 ---
 
+## 🆕 **MEJORAS RECIENTES (Enero 2025)**
+
+### **🏠 Homepage Refinements**
+- **Diseño limpio**: Eliminación de títulos de sección y CTA final
+- **Tiles compactos**: Grid 3x3 para destinos y países populares
+- **Ordenamiento**: Destinos por cantidad de hoteles, países por cantidad de destinos
+- **Estilo minimalista**: Sin elementos visuales innecesarios
+
+### **🦶 Footer Improvements**
+- **Navegación horizontal**: 3 columnas (Países, Destinos, Rutas)
+- **Enlaces populares**: Top countries, destinations y routes
+- **Diseño limpio**: Sin copyright ni descripción
+- **CSS aislado**: `.footer-nav-container` para evitar conflictos
+
+### **📄 Pagination Enhancements**
+- **Soporte multiidioma**: Texto dinámico según idioma actual
+- **Diseño minimalista**: Sin backgrounds, solo texto limpio
+- **Alineación derecha**: Layout moderno como sitios web actuales
+- **Estados activos**: Indicador claro de página actual
+
+### **🏨 Hotel Minimum Duration**
+- **Campo agregado**: `min_duration` en interface `Hotel`
+- **Display inteligente**: "1 day" vs "2 days" (gramática correcta)
+- **Orden de información**: Duración → Precio tachado → Precio actual
+- **Estilo consistente**: Mismo color que precio, fuente más pequeña
+
+### **📍 Hero Location Removal**
+- **Destino pages**: Eliminación de red pin y ubicación en hero
+- **Diseño más limpio**: Enfoque en título y descripción
+- **Consistencia**: Todas las páginas de destino sin ubicación
+
 ## 🔧 **CONFIGURACIÓN TÉCNICA**
 
 ### **TypeScript Interfaces**
@@ -181,6 +215,7 @@ export interface Hotel {
   location_heading: string;
   location_subheading: string;
   vendor_name?: string;
+  min_duration?: number;
 }
 
 export interface DestinationData {
@@ -220,6 +255,10 @@ export type SupportedLanguage = 'en' | 'es' | 'fr' | 'it';
 - .destination-price-badge - Badge de precio
 - .hero-section - Sección hero
 - .related-links - Enlaces relacionados
+- .destination-tiles-grid - Grid de tiles de destinos (homepage)
+- .destination-tile - Tile individual de destino
+- .hotel-min-duration - Duración mínima en tarjetas de hoteles
+- .footer-nav-container - Contenedor de navegación del footer
 ```
 
 ---
