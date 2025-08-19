@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MondoExplora Blog{% endblock %}</title>
+    
+    <!-- Blog-specific CSS only - completely isolated from main site -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blog.css') }}">
+    
+    <!-- Google Fonts for blog only -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="blog-reset">
+    <div class="blog-container">
+        <!-- Blog Header -->
+        <header class="blog-header">
+            <div class="blog-header-content">
+                <a href="{{ url_for('blog.blog_home') }}" class="blog-logo">
+                    MondoExplora Blog
+                </a>
+                <nav>
+                    <ul class="blog-nav">
+                        <li><a href="{{ url_for('blog.blog_home') }}">Home</a></li>
+                        <li><a href="{{ url_for('blog.search_posts') }}">Search</a></li>
+                        {% if session.get('user_id') %}
+                            <li><a href="{{ url_for('creator.dashboard') }}">Dashboard</a></li>
+                            <li><a href="{{ url_for('creator.logout') }}">Logout</a></li>
+                        {% else %}
+                            <li><a href="{{ url_for('creator.login') }}">Login</a></li>
+                            <li><a href="{{ url_for('creator.register') }}">Register</a></li>
+                        {% endif %}
+                        {% if session.get('admin_id') %}
+                            <li><a href="{{ url_for('creator.admin_dashboard') }}">Admin</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Blog Main Content -->
+        <main class="blog-main">
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="blog-alert blog-alert-{{ 'error' if category == 'error' else category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- Page Content -->
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- Blog Footer -->
+        <footer class="blog-footer blog-text-center blog-p-4" style="background: #2d3748; color: white; margin-top: 3rem;">
+            <p>&copy; 2024 MondoExplora Blog. All rights reserved.</p>
+        </footer>
+    </div>
+
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html> 

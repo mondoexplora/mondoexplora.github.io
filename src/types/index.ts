@@ -8,6 +8,7 @@ export interface Hotel {
   location_heading: string;
   location_subheading: string;
   vendor_name?: string;
+  min_duration?: number;
 }
 
 export interface DestinationData {
@@ -49,4 +50,18 @@ export interface DealData {
   link: string;
 }
 
-export type SupportedLanguage = 'en' | 'es' | 'fr' | 'it'; 
+export type SupportedLanguage = 'en' | 'es' | 'fr' | 'it';
+
+export interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  author: string;
+  date: string;
+  status: 'draft' | 'published' | 'pending';
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  lang: SupportedLanguage;
+} 

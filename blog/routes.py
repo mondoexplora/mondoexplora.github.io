@@ -99,4 +99,10 @@ def search_posts():
     else:
         posts = None
     
-    return render_template('blog/search.html', posts=posts, query=query) 
+    return render_template('blog/search.html', posts=posts, query=query)
+
+# Test route for CSS isolation
+@blog_bp.route('/test')
+def test_css():
+    """Test route to verify blog CSS isolation"""
+    return render_template('blog/test.html') 

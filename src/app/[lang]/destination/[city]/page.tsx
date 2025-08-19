@@ -28,7 +28,6 @@ export default async function DestinationPage({ params }: PageProps) {
           title={destinationData.hero_title}
           subtitle={destinationData.description}
           backgroundImage={destinationData.hero_image}
-          location={`${destinationData.city}, ${destinationData.country}`}
         />
         
         <div className="main-content">

@@ -33,6 +33,20 @@ body {
   line-height: 1.5;
 }
 
+/* Footer Navigation Container - Isolated Styles */
+.footer-nav-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-nav-container > div {
+  flex: 1;
+  min-width: 0;
+}
+
 /* Destination Cards Styles - Direct Copy */
 .destination-grid {
   display: grid;
@@ -130,6 +144,147 @@ body {
   color: #9ca3af;
   font-weight: 500;
   margin-top: 0.5rem;
+}
+
+/* Destination Tiles Styles - New Compact Design */
+.destination-tiles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.destination-tile {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  display: block;
+  height: 200px;
+}
+
+.destination-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  border-color: #2a3f59;
+}
+
+.destination-tile-image {
+  height: 120px;
+  overflow: hidden;
+  position: relative;
+}
+
+.destination-tile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.destination-tile-placeholder {
+  background: linear-gradient(135deg, #2a3f59 0%, #4a5f7a 100%);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.destination-tile-icon {
+  font-size: 2rem;
+  color: white;
+}
+
+.destination-tile-info {
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.destination-tile-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #2a3f59;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.destination-tile-country {
+  font-size: 0.75rem;
+  color: #6c757d;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.destination-tile-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.destination-tile-hotels {
+  font-size: 0.7rem;
+  color: #4a5568;
+  font-weight: 600;
+}
+
+.destination-tile-price {
+  font-size: 0.7rem;
+  color: #28a745;
+  font-weight: 600;
+}
+
+/* Mobile responsive for destination tiles */
+@media (max-width: 768px) {
+  .destination-tiles-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .destination-tile {
+    height: 180px;
+  }
+  
+  .destination-tile-image {
+    height: 100px;
+  }
+  
+  .destination-tile-info {
+    padding: 0.5rem;
+  }
+  
+  .destination-tile-name {
+    font-size: 0.8rem;
+  }
+  
+  .destination-tile-country {
+    font-size: 0.7rem;
+  }
+  
+  .destination-tile-hotels,
+  .destination-tile-price {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .destination-tiles-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .destination-tile {
+    height: 160px;
+  }
+  
+  .destination-tile-image {
+    height: 90px;
+  }
 }
 
 .destination-price {

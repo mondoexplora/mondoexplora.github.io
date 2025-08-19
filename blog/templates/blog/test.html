@@ -1,0 +1,121 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Blog CSS Test - MondoExplora{% endblock %}
+
+{% block content %}
+<div class="blog-content">
+    <div class="blog-p-4">
+        <h1 class="blog-post-detail-title">Blog CSS Isolation Test</h1>
+        <p class="blog-mb-3">This page tests that the blog CSS is completely isolated from the main website.</p>
+        
+        <!-- Test Blog Components -->
+        <div class="blog-stats-grid">
+            <div class="blog-stat-card">
+                <div class="blog-stat-number">42</div>
+                <div class="blog-stat-label">Blog Posts</div>
+            </div>
+            <div class="blog-stat-card">
+                <div class="blog-stat-number">15</div>
+                <div class="blog-stat-label">Authors</div>
+            </div>
+            <div class="blog-stat-card">
+                <div class="blog-stat-number">1.2K</div>
+                <div class="blog-stat-label">Readers</div>
+            </div>
+        </div>
+
+        <!-- Test Blog Form -->
+        <div class="blog-form-container">
+            <div class="blog-form">
+                <h2 class="blog-form-title">Test Form</h2>
+                <div class="blog-form-group">
+                    <label class="blog-form-label">Test Input</label>
+                    <input type="text" class="blog-form-input" placeholder="This should use blog styles">
+                </div>
+                <div class="blog-form-group">
+                    <label class="blog-form-label">Test Textarea</label>
+                    <textarea class="blog-form-textarea" placeholder="This should use blog styles"></textarea>
+                </div>
+                <button class="blog-form-button">Test Button</button>
+            </div>
+        </div>
+
+        <!-- Test Blog Buttons -->
+        <div class="blog-mt-4">
+            <h3>Test Buttons</h3>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <button class="blog-btn blog-btn-primary">Primary Button</button>
+                <button class="blog-btn blog-btn-success">Success Button</button>
+                <button class="blog-btn blog-btn-danger">Danger Button</button>
+                <button class="blog-btn blog-btn-primary blog-btn-small">Small Button</button>
+            </div>
+        </div>
+
+        <!-- Test Blog Alerts -->
+        <div class="blog-mt-4">
+            <h3>Test Alerts</h3>
+            <div class="blog-alert blog-alert-success">
+                This is a success alert using blog CSS
+            </div>
+            <div class="blog-alert blog-alert-error">
+                This is an error alert using blog CSS
+            </div>
+            <div class="blog-alert blog-alert-info">
+                This is an info alert using blog CSS
+            </div>
+        </div>
+
+        <!-- Test Blog Table -->
+        <div class="blog-mt-4">
+            <h3>Test Table</h3>
+            <table class="blog-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>john@example.com</td>
+                        <td><span class="blog-btn blog-btn-success blog-btn-small">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>jane@example.com</td>
+                        <td><span class="blog-btn blog-btn-danger blog-btn-small">Inactive</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Test Blog Cards -->
+        <div class="blog-mt-4">
+            <h3>Test Post Cards</h3>
+            <div class="blog-posts-grid">
+                <a href="#" class="blog-post-card">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=200&fit=crop" alt="Test" class="blog-post-image">
+                    <div class="blog-post-content">
+                        <h3 class="blog-post-title">Test Blog Post Title</h3>
+                        <p class="blog-post-excerpt">This is a test excerpt for the blog post card component.</p>
+                        <div class="blog-post-meta">
+                            <div class="blog-post-author">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=24&h=24&fit=crop&crop=face" alt="Author" class="blog-author-avatar">
+                                <span>Test Author</span>
+                            </div>
+                            <span>2 days ago</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="blog-mt-4 blog-text-center">
+            <p><strong>✅ If you can see this styled content, the blog CSS isolation is working correctly!</strong></p>
+            <p>All styles should be completely separate from the main website.</p>
+        </div>
+    </div>
+</div>
+{% endblock %} 

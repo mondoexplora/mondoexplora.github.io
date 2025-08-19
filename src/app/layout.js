@@ -1,7 +1,10 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'MondoExplora - Travel Guide',
+  title: {
+    default: 'MondoExplora',
+    template: '%s | MondoExplora'
+  },
   description: 'Discover amazing destinations and find the best hotel deals',
   icons: {
     icon: '/favicon.svg',

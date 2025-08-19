@@ -55,6 +55,11 @@ export default function HotelCard({ hotel, onViewDeal, lang = 'en' }: HotelCardP
         />
         
         <div className="hotel-price">
+          {hotel.min_duration && (
+            <div className="hotel-min-duration">
+              {hotel.min_duration} {hotel.min_duration === 1 ? 'day' : 'days'} from
+            </div>
+          )}
           {hotel.original_price && hotel.original_price > hotel.price && (
             <del>${hotel.original_price}</del>
           )}

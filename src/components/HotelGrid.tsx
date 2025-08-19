@@ -57,6 +57,7 @@ export default function HotelGrid({ hotels, hotelsPerPage = 6, lang = 'en' }: Ho
         totalHotels={hotels.length}
         hotelsPerPage={hotelsPerPage}
         onPageChange={handlePageChange}
+        lang={lang}
       />
     </div>
   );

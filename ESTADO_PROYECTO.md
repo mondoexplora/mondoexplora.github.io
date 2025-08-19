@@ -8,6 +8,8 @@ Proyecto Next.js para MondoExplora.com - Plataforma de viajes con páginas diná
 - ✅ Deploy en Netlify configurado y funcionando
 - ✅ Sistema de tipos TypeScript completo
 - ✅ Estructura de datos reorganizada
+- ✅ **Sistema de Blog completo migrado a Next.js**
+- ✅ **Google Maps API integrado para creación de posts**
 - 🔄 Optimización de SEO/SEM
 - 🔄 Internacionalización completa
 
@@ -36,6 +38,21 @@ Proyecto Next.js para MondoExplora.com - Plataforma de viajes con páginas diná
 11. **ESTILOS CSS** - Hotel boxes, Hero, Footer, paginación
 12. **CONFIGURACIÓN RUTAS** - Centralizada en config/routes.json
 
+### ✅ **SISTEMA DE BLOG COMPLETO** (Enero 2025)
+13. **MIGRACIÓN FLASK A NEXT.JS** - Blog completamente migrado de Flask a Next.js
+14. **CSS AISLADO** - Sistema de CSS independiente con prefijo `blog-` para evitar conflictos
+15. **SISTEMA DE AUTENTICACIÓN** - Login, registro, invitaciones y dashboard de bloggers
+16. **ADMIN PANEL** - Gestión de códigos de invitación y aprobación de creadores
+17. **GOOGLE MAPS API** - Integración completa con Places Autocomplete y Geocoding
+18. **CREACIÓN DE POSTS AVANZADA** - Formulario con itinerario diario, alojamiento y mapas
+19. **SISTEMA DE DÍAS** - Agregar/eliminar días por destino con renumeración automática
+20. **CAMPOS DE ALOJAMIENTO** - Nombre del hotel y URL de reserva opcionales
+21. **UI COMPACTA** - Diseño optimizado para mejor experiencia de usuario
+22. **LOCALSTORAGE** - Sistema de persistencia de datos para desarrollo/testing
+23. **ENVIRONMENT VARIABLES** - Configuración segura de API keys con `.env.local`
+24. **CONFIGURACIÓN DINÁMICA** - next.config.js condicional para desarrollo vs producción
+25. **NEXT.JS 15 COMPATIBILITY** - Rutas dinámicas con async/await para params
+
 ### 🔄 **En Progreso**
 - **BRANCH**: `spa-experiment` (desarrollo activo)
 - **DEPLOY**: Netlify funcionando correctamente
@@ -56,6 +73,18 @@ data/
 │   └── route/           # Datos de rutas
 ├── es/, fr/, it/        # Otros idiomas
 └── le_destination_urls/ # URLs de afiliados por destino
+
+src/
+├── app/
+│   ├── blog/            # Sistema de blog completo
+│   │   ├── page.tsx     # Homepage del blog
+│   │   ├── login/       # Sistema de autenticación
+│   │   ├── signup/      # Registro de creadores
+│   │   ├── dashboard/   # Dashboard de bloggers
+│   │   ├── admin/       # Panel de administración
+│   │   ├── create/      # Creación de posts
+│   │   └── [slug]/      # Posts individuales
+│   └── blog.css         # CSS aislado del blog
 ```
 
 ## 🎨 **Diseño y UX**
@@ -63,18 +92,26 @@ data/
 - **Hotel Boxes**: Diseño atractivo con precios y CTAs
 - **Hero Sections**: Imágenes de fondo con CTAs
 - **Responsive**: Adaptado para móviles y desktop
+- **Blog UI**: Diseño compacto y funcional con CSS aislado
+- **Formularios**: Layout optimizado con campos organizados verticalmente
 
 ## ⚙️ **Configuraciones Técnicas**
 - **Next.js**: `output: 'export'` para static generation
 - **Netlify**: `command: "npm run build"`, `publish: "out"`
 - **TypeScript**: Configurado con paths aliases (@/)
 - **CSS**: Tailwind + estilos personalizados importados
+- **Google Maps API**: Configurado con environment variables
+- **Blog CSS**: Sistema aislado con prefijo `blog-` para evitar conflictos
+- **Environment Variables**: `.env.local` para desarrollo, Netlify env vars para producción
+- **Next.js 15 Compatibility**: Configuración async/await para rutas dinámicas
 
 ## 📈 **KPIs y Métricas**
 - **Páginas generadas**: ~1000+ páginas estáticas
 - **Tiempo de build**: ~15-20 segundos
 - **Tamaño bundle**: Optimizado para producción
 - **SEO**: Metadatos dinámicos por página
+- **Blog posts**: Sistema completo para creación y gestión
+- **Google Maps**: Integración funcional con autocomplete y geocoding
 
 ## ⚠️ **Problemas Conocidos**
 ### ✅ **Resueltos**
@@ -86,6 +123,8 @@ data/
 ### 🔍 **Investigación Pendiente**
 - **Problema: Metadata SEO/SEM** - Necesita optimización para mejor ranking
 - **Problema: Favicon** - Verificar origen y optimizar
+- **Problema: Google Maps Autocomplete** - Dropdown no aparece en algunos casos
+- **Problema: Next.js 15 params** - Resuelto con async/await para rutas dinámicas
 
 ## 📞 **Contacto y Continuidad**
 - **Desarrollador**: Asistente AI
@@ -105,4 +144,8 @@ data/
 2. Implementar páginas travel_modes
 3. Completar internacionalización
 4. Agregar más rutas al config/routes.json
-5. Optimizar imágenes y performance 
+5. Optimizar imágenes y performance
+6. **Resolver Google Maps Autocomplete** - Investigar por qué no aparece dropdown
+7. **Implementar base de datos real** - Migrar de localStorage a base de datos persistente
+8. **Sistema de comentarios** - Agregar funcionalidad de comentarios al blog
+9. **Configuración de desarrollo vs producción** - Optimizar next.config.js para diferentes entornos 

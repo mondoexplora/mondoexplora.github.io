@@ -1,7 +1,7 @@
 # PÁGINAS DETALLES - MONDOEXPLORA
 
 ## 📋 **Resumen**
-Documentación técnica detallada de todas las páginas del proyecto MondoExplora Next.js.
+Documentación técnica detallada de todas las páginas del proyecto MondoExplora Next.js, incluyendo el sistema de blog completo migrado de Flask a Next.js.
 
 ## 🏠 **PÁGINA HOME** (`/[lang]/page.tsx`)
 
@@ -277,6 +277,380 @@ export type SupportedLanguage = 'en' | 'es' | 'fr' | 'it';
 - **`spa-experiment`**: Desarrollo activo
 - **`main`**: Producción estable
 - **Deploy automático** desde `spa-experiment`
+
+---
+
+## 📝 **SISTEMA DE BLOG COMPLETO**
+
+### **🏠 PÁGINA BLOG HOME** (`/blog/page.tsx`)
+
+#### **URL Structure**
+- **Patrón**: `/blog/`
+- **Ejemplo**: `https://mondoexplora.com/blog/`
+
+#### **Funcionalidad**
+- **H1**: "MondoExplora Travel Blog"
+- **Contenido**: Posts destacados, categorías y navegación
+- **Data Source**: Mock data desde localStorage (posts de ejemplo)
+
+#### **Componentes**
+- `BlogHeader` - Navegación del blog
+- `FeaturedPosts` - Posts destacados
+- `BlogFooter` - Pie de página del blog
+
+#### **CSS Aislado**
+- **Archivo**: `src/app/blog.css`
+- **Prefijo**: `blog-` para evitar conflictos con el sitio principal
+- **Clases principales**: `.blog-container`, `.blog-header`, `.blog-main`, `.blog-card`
+
+---
+
+### **🔐 PÁGINA BLOG LOGIN** (`/blog/login/page.tsx`)
+
+#### **URL Structure**
+- **Patrón**: `/blog/login/`
+- **Ejemplo**: `https://mondoexplora.com/blog/login/`
+
+#### **Funcionalidad**
+- **Autenticación**: Sistema de login para bloggers
+- **Validación**: Verifica usuarios en localStorage
+- **Redirección**: A dashboard tras login exitoso
+- **Estado**: Requiere `isApproved: true` para acceso
+
+#### **Data Structure**
+```typescript
+interface BlogUser {
+  id: string;
+  username: string;
+  fullName: string;
+  email: string;
+  isApproved: boolean;
+  createdAt: string;
+}
+```
+
+#### **Componentes**
+- `LoginForm` - Formulario de autenticación
+- `ErrorHandling` - Manejo de errores de login
+- `SuccessRedirect` - Redirección tras login exitoso
+
+---
+
+### **📝 PÁGINA BLOG SIGNUP** (`/blog/signup/page.tsx`)
+
+#### **URL Structure**
+- **Patrón**: `/blog/signup/`
+- **Ejemplo**: `https://mondoexplora.com/blog/signup/`
+
+#### **Funcionalidad**
+- **Registro en 2 pasos**: Email + código de invitación, luego datos personales
+- **Validación**: Códigos de invitación desde localStorage
+- **Estado**: Nuevos usuarios marcados como `isApproved: false`
+- **Persistencia**: Datos guardados en localStorage
+
+#### **Proceso de Registro**
+1. **Paso 1**: Email y código de invitación
+2. **Paso 2**: Nombre completo, username, bio
+3. **Guardado**: Usuario agregado a `pendingCreators` en localStorage
+
+#### **Data Structure**
+```typescript
+interface InvitationCode {
+  code: string;
+  createdBy: string;
+  createdAt: string;
+  isUsed: boolean;
+  usedBy?: string;
+}
+```
+
+---
+
+### **📊 PÁGINA BLOG DASHBOARD** (`/blog/dashboard/page.tsx`)
+
+#### **URL Structure**
+- **Patrón**: `/blog/dashboard/`
+- **Ejemplo**: `https://mondoexplora.com/blog/dashboard/`
+
+#### **Funcionalidad**
+- **Dashboard personal**: Estadísticas y posts del blogger
+- **Posts del usuario**: Lista de posts creados por el usuario actual
+- **Acciones rápidas**: Crear nuevo post, editar existentes
+- **Estado**: Muestra información del usuario logueado
+
+#### **Componentes**
+- `UserStats` - Estadísticas del usuario
+- `UserPosts` - Lista de posts del usuario
+- `QuickActions` - Botones de acción rápida
+- `EmptyStates` - Estados vacíos cuando no hay posts
+
+---
+
+### **⚙️ PÁGINA BLOG ADMIN** (`/blog/admin/page.tsx`)
+
+#### **URL Structure**
+- **Patrón**: `/blog/admin/`
+- **Ejemplo**: `https://mondoexplora.com/blog/admin/`
+
+#### **Funcionalidad**
+- **Gestión de códigos**: Generar y ver códigos de invitación
+- **Aprobación de usuarios**: Aprobar creadores pendientes
+- **Estadísticas**: Contadores de usuarios y códigos
+- **Debug info**: Información de localStorage para desarrollo
+
+#### **Acciones Disponibles**
+- **Generate Codes**: Crear nuevos códigos de invitación
+- **Approve Creator**: Mover usuarios de `pendingCreators` a `approvedCreators`
+- **View Stats**: Ver estadísticas de usuarios y códigos
+
+#### **Data Management**
+- **localStorage Keys**: `invitationCodes`, `pendingCreators`, `approvedCreators`
+- **Debug Info**: Muestra contadores en tiempo real
+
+---
+
+### **✏️ PÁGINA BLOG CREATE** (`/blog/create/page.tsx`)
+
+#### **URL Structure**
+- **Patrón**: `/blog/create/`
+- **Ejemplo**: `https://mondoexplora.com/blog/create/`
+
+#### **Funcionalidad**
+- **Creación avanzada**: Formulario completo para crear posts de viaje
+- **Google Maps**: Integración con Places Autocomplete y Geocoding
+- **Itinerario diario**: Sistema de días por destino
+- **Alojamiento**: Campos para nombre y URL del hotel
+- **Mapa interactivo**: Preview de la ruta en tiempo real
+
+#### **Características Principales**
+
+##### **1. Información Básica**
+- **Título del post**: Genera slug automáticamente
+- **Descripción**: Resumen del viaje
+- **Slug URL**: Generado automáticamente desde el título
+
+##### **2. Journey Map (Mapa del Viaje)**
+- **Destinos**: Agregar múltiples destinos con autocomplete
+- **Alojamiento**: Nombre del hotel y URL de reserva (opcionales)
+- **Descripción general**: Overview de cada destino
+- **Itinerario diario**: Sistema de días con renumeración automática
+
+##### **3. Google Maps Integration**
+- **Places Autocomplete**: Sugerencias al escribir nombres de destinos
+- **Geocoding**: Conversión automática de nombres a coordenadas
+- **Map Preview**: Visualización de la ruta en tiempo real
+- **Markers**: Marcadores numerados para cada destino
+
+##### **4. Sistema de Días**
+- **Día 1**: Automático en cada destino
+- **Agregar días**: Botón "+ Add Day" para más días
+- **Eliminar días**: Botón "×" (excepto el primer día)
+- **Renumeración**: Automática al eliminar días
+
+##### **5. Campos de Alojamiento**
+- **Nombre del hotel**: Campo de texto opcional
+- **URL de reserva**: Campo URL opcional
+- **Layout**: Ambos campos en la misma fila (grid 2 columnas)
+
+#### **Data Structure**
+```typescript
+interface Day {
+  id: number;
+  dayNumber: number;
+  content: string;
+}
+
+interface Destination {
+  id: number;
+  name: string;
+  content: string;
+  accommodationName?: string;
+  accommodationUrl?: string;
+  days: Day[];
+  lat?: number;
+  lng?: number;
+}
+
+interface FormData {
+  title: string;
+  description: string;
+  slug: string;
+  content: string;
+  destinations: Destination[];
+  countries: string[];
+  tags: string[];
+  images: File[];
+}
+```
+
+#### **Google Maps Configuration**
+```typescript
+// Environment Variables
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_api_key_here
+
+// API Features Used
+- Maps JavaScript API
+- Places API (Autocomplete)
+- Geocoding API
+- Directions API
+```
+
+#### **UI/UX Features**
+- **Layout compacto**: Espaciado optimizado para mejor experiencia
+- **CSS aislado**: Prefijo `blog-` para evitar conflictos
+- **Responsive**: Adaptado para móviles y desktop
+- **Loading states**: Indicadores de carga
+- **Error handling**: Manejo de errores de API y validación
+
+---
+
+### **📄 PÁGINA BLOG POST** (`/blog/[slug]/page.tsx`)
+
+#### **URL Structure**
+- **Patrón**: `/blog/[slug]/`
+- **Ejemplo**: `https://mondoexplora.com/blog/amazing-adventures-thailand/`
+- **Compatibilidad**: Next.js 15 con async/await para params dinámicos
+
+#### **Funcionalidad**
+- **Posts individuales**: Visualización de posts completos
+- **Contenido dinámico**: Título, descripción, contenido, imágenes
+- **Navegación**: Links al blog y dashboard
+- **SEO**: Metadatos dinámicos por post
+
+#### **generateStaticParams**
+```typescript
+export async function generateStaticParams() {
+  return [
+    { slug: 'amazing-adventures-thailand' },
+    { slug: 'exploring-tokyo-streets' },
+    { slug: 'hidden-gems-paris' },
+    { slug: 'create' } // Prevents routing conflict
+  ]
+}
+```
+
+---
+
+### **🧹 PÁGINA CLEAR STORAGE** (`/blog/clear-storage/page.tsx`)
+
+#### **URL Structure**
+- **Patrón**: `/blog/clear-storage/`
+- **Ejemplo**: `https://mondoexplora.com/blog/clear-storage/`
+
+#### **Funcionalidad**
+- **Utilidad de desarrollo**: Limpia todos los datos de localStorage
+- **Debugging**: Útil para testing y desarrollo
+- **Redirección**: Automática al blog homepage tras limpieza
+
+#### **localStorage Keys Cleared**
+- `blogUsers`
+- `pendingCreators`
+- `currentUser`
+- `userPosts`
+- `invitationCodes`
+
+---
+
+## 🔧 **CONFIGURACIÓN TÉCNICA DEL BLOG**
+
+### **CSS Aislado**
+```css
+/* src/app/blog.css */
+.blog-container { /* Contenedor principal */ }
+.blog-header { /* Header del blog */ }
+.blog-main { /* Contenido principal */ }
+.blog-card { /* Tarjetas de contenido */ }
+.blog-form { /* Formularios */ }
+.blog-btn { /* Botones */ }
+.blog-alert { /* Alertas */ }
+```
+
+### **Environment Variables**
+```bash
+# .env.local
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_real_api_key_here
+```
+
+### **localStorage Structure**
+```javascript
+// Users
+blogUsers: BlogUser[]
+
+// Invitation Codes
+invitationCodes: InvitationCode[]
+
+// Pending Creators
+pendingCreators: BlogUser[]
+
+// Approved Creators
+approvedCreators: BlogUser[]
+
+// Current User
+currentUser: BlogUser
+
+// User Posts
+userPosts: BlogPost[]
+```
+
+### **Google Maps API Setup**
+1. **API Key**: Configurado en Google Cloud Console
+2. **Referrers**: `http://localhost:3000/*`, `https://mondoexplora.com/*`
+3. **APIs Enabled**: Maps JavaScript, Places, Geocoding, Directions
+4. **Security**: Environment variables para evitar exposición
+
+### **Next.js 15 Configuration**
+1. **Dynamic Routes**: Configuración async/await para params
+2. **Development vs Production**: next.config.js condicional
+3. **Static Export**: Solo en producción, desarrollo dinámico
+4. **Compatibility**: Rutas dinámicas del blog funcionando correctamente
+
+---
+
+## ⚠️ **PROBLEMAS CONOCIDOS DEL BLOG**
+
+### **Google Maps Issues**
+1. **Autocomplete Dropdown**: No aparece en algunos casos
+   - **Estado**: Investigación en progreso
+   - **Workaround**: Geocoding manual como fallback
+
+2. **ZERO_RESULTS Error**: Errores de geocoding
+   - **Causa**: Nombres de lugares no reconocidos
+   - **Solución**: Priorizar coordenadas de autocomplete
+
+### **localStorage Limitations**
+1. **Persistencia**: Solo funciona en el navegador actual
+2. **Escalabilidad**: No adecuado para producción
+3. **Sincronización**: No hay sincronización entre dispositivos
+
+### **CSS Isolation**
+1. **Prefijos**: Todos los estilos deben usar prefijo `blog-`
+2. **Conflictos**: Evitar clases que puedan colisionar con el sitio principal
+
+### **Next.js 15 Compatibility**
+1. **Async Params**: Todas las rutas dinámicas usan async/await
+2. **Server Components**: Separación clara entre server y client components
+3. **Dynamic Routes**: Funcionamiento correcto en desarrollo y producción
+
+---
+
+## 🚀 **PRÓXIMOS PASOS DEL BLOG**
+
+### **Inmediatos**
+1. **Resolver Google Maps Autocomplete** - Investigar dropdown issues
+2. **Testing completo** - Verificar todas las funcionalidades
+3. **Documentación** - Completar guías de usuario
+
+### **Mediano Plazo**
+1. **Base de datos real** - Migrar de localStorage a DB persistente
+2. **Sistema de comentarios** - Agregar funcionalidad de comentarios
+3. **Rich text editor** - Implementar editor avanzado para contenido
+4. **Sistema de categorías** - Organizar posts por categorías
+
+### **Largo Plazo**
+1. **SEO optimization** - Metadatos dinámicos para posts
+2. **Social sharing** - Integración con redes sociales
+3. **Analytics** - Tracking de visitas y engagement
+4. **Monetización** - Sistema de afiliados integrado
 
 ---
 
