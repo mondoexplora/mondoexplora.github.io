@@ -26,6 +26,7 @@ export default async function TravelModesPage({ params }: PageProps) {
         title={`Transport Options: ${displayOrigin} to ${displayDestination}`}
         subtitle="Compare flights, trains, buses and car rentals"
         backgroundImage="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1200&h=600&fit=crop"
+        homeHref={`/${lang}`}
       />
       
       <div className="max-w-6xl mx-auto px-4 py-12">

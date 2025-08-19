@@ -54,10 +54,10 @@ export default function Footer({ currentLang }: FooterProps) {
         {/* Logo and Language */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-6 border-t border-gray-700">
           {/* Logo */}
-          <div className="flex items-center gap-2">
+          <Link href={`/${currentLang || 'en'}`} className="flex items-center gap-2" aria-label="MondoExplora Home">
             <span className="text-lg font-light">Mondo</span>
             <span className="text-lg font-bold bg-white/30 text-blue-900 px-2 py-1 rounded">Explora</span>
-          </div>
+          </Link>
           
           {/* Language Switcher */}
           {currentLang && (

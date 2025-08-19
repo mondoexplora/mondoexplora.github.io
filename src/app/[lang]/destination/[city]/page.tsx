@@ -28,6 +28,7 @@ export default async function DestinationPage({ params }: PageProps) {
           title={destinationData.hero_title}
           subtitle={destinationData.description}
           backgroundImage={destinationData.hero_image}
+          homeHref={`/${lang}`}
         />
         
         <div className="main-content">

@@ -50,6 +50,7 @@ export default async function RoutePage({ params }: PageProps) {
           title={headline}
           subtitle={`Discover the best way to travel from ${displayOrigin} to ${displayDestination}. Compare travel modes and find exclusive hotel deals.`}
           backgroundImage={destinationData.hero_image}
+          homeHref={`/${lang}`}
           cta={<RouteCTA origin={origin} destination={destination} lang={lang} affiliateLink={destinationUrlData?.affiliate_link as string | undefined} />}
         />
         

@@ -63,6 +63,7 @@ export default async function HomePage({ params }: PageProps) {
           title="Discover Amazing Destinations"
           subtitle="Find the best hotel deals and travel routes around the world. Plan your next adventure with exclusive offers and insider tips."
           backgroundImage="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1748&&auto=format&fit=crop&w=1600&q=80"
+          homeHref={`/${lang}`}
         />
         
         <div className="main-content">

@@ -49,6 +49,7 @@ export default async function CountryPage({ params }: PageProps) {
           title={`Discover ${countryData.name}`}
           subtitle={countryData.description}
           backgroundImage={countryData.hero_image}
+          homeHref={`/${lang}`}
         />
         
         <div className="main-content">
