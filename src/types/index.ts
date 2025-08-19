@@ -64,4 +64,9 @@ export interface BlogPost {
   createdAt: string;
   updatedAt: string;
   lang: SupportedLanguage;
+  images?: string[];
+  destinations?: Array<{
+    name: string;
+    content?: string;
+  }>;
 } 
